@@ -46,7 +46,11 @@ local function LoginAnnouncer(eventid, delay, repeats, player)
     end
 end
 
+
 local function OnLogin(event, player)
     player:RegisterEvent(LoginAnnouncer, 3000)
 end
 RegisterPlayerEvent(3, OnLogin)
+
+
+
