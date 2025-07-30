@@ -2,10 +2,11 @@
     LoginAnnounce for Azerothcore and Trinitycore Eluna 3.3.5a
     Discord: elperroblack#6996
 ]]
+local config = require("config")
 
 local GameMasterAnnouncement = true -- false = Ignore GameMasters
 local strings = {
-    serverName = "LoginAnnouncer  ",
+    serverName = "Anunciador  |cff33FF00"..config.serverName .."|r",
     faction = {
         [0] = "|cff0000FFAlliance|r",
         [1] = "|cffFF0000Horde|r"
@@ -35,7 +36,7 @@ local icons = {
 local function LoginAnnouncer(eventid, delay, repeats, player)
     local msg
     if GameMasterAnnouncement and player:GetGMRank() >= 1 then
-            msg = icons.logo ..strings.serverName ..icons.gameMaster .."|cff2ECCFA" ..player:GetName() .."|r " .. "is online.|r"
+            msg = icons.logo ..strings.serverName ..icons.gameMaster .."|cff2ECCFA" ..player:GetName() .."|r " .. "se ha conectado.|r"
     else
         if player:GetGMRank() < 1 then
             msg = icons.logo ..strings.serverName ..icons.faction[player:GetTeam()] ..strings.colorClass[player:GetClass()] ..player:GetName() .."|r "  .."se ha conectado.|r"
