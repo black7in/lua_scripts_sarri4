@@ -1,7 +1,7 @@
-
+local config = require("config")
 
 local function enviarMensaje(eventid, delay, repeats, player)
-    local msg = "Bienvenido a |cff33FF00Murloc Wow|r\n" .. player:GetName() .. "! Disfruta de tu aventura en Azeroth.\n" ..
+    local msg = "Bienvenido a |cff33FF00"..config.serverName.."|r\n" .. player:GetName() .. "! Disfruta de tu aventura en Azeroth.\n\n" ..
                 "Si necesitas ayuda, puedes contactar a un Game Master o visitar nuestro sitio web.\n" ..
                 "Recuerda que estamos aquí para ayudarte a disfrutar de la mejor experiencia de juego posible.\n\n" ..
                 "¡Diviértete y buena suerte!\n"

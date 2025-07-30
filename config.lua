@@ -2,7 +2,7 @@
 local config = {}
 
 -- Configuraciones generales
-config.server_name = "Murloc Wow"
+config.serverName = "Murloc Wow"
 config.max_players = 1000
 config.debug_mode = true
 
