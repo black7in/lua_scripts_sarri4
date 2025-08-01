@@ -1,3 +1,4 @@
+local npc = 900000
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
     player:GossipMenuAddItem( 0, "Quiero poder volar!!!", 0, 1 )
