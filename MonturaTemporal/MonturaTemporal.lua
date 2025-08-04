@@ -36,7 +36,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
             return
         end
 
-        object:Say("¡Gracias por la comida!", 0)
+        object:SendUnitSay("¡Gracias por la comida!", 0)
         player:RemoveItem(food, 1)
         player:Dismount()
         player:RemoveEvents()
