@@ -35,7 +35,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
             object:SendUnitSay("¡No tienes comida para alimentarme!", 0)
             player:GossipComplete()
 
-            print(object::GetGUIDLow())
+            print(object:GetGUIDLow())
             return
         end
 
