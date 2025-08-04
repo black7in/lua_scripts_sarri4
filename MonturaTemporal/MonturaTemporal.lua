@@ -32,7 +32,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
     else
         local food = hasFoods(player)
         if food == 0 then
-            object:Say("¡No tienes comida para alimentarme!", 0)
+            object:SendUnitSay("¡No tienes comida para alimentarme!", 0)
             return
         end
 
