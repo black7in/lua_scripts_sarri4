@@ -1,24 +1,59 @@
-local npc = 900000
+local npc = 90000
+
+local foods = {
+    117,
+    159,
+    414,
+    422,
+    1205,
+    1645,
+    1707,
+    1708,
+    3927,
+    8766,
+    8932,
+    13931,
+    23160,
+    27854,
+    27860,
+    28399,
+    29394,
+    33443,
+    33444,
+    33445,
+    35947,
+}
+
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
-    player:GossipMenuAddItem( 0, "Quiero poder volar!!!", 0, 1 )
-    player:GossipMenuAddItem( 0, "No quiero anda, adios!", 0, 2 )
-    player:GossipSendMenu( 1, object )
+    player:GossipMenuAddItem( 0, "Alimentar", 0, 1 )
+    player:GossipMenuAddItem( 0, "Salir", 0, 2 )
+    player:GossipSendMenu( 90000, object )
 end RegisterCreatureGossipEvent( npc, 1, OnGossipHello )
 
 local function PlayerDismount(eventid, delay, repeats, player)
     player:Dismount()
 end
 
+local function hasFoods(player)
+
+    return false
+end
+
 local function OnGossipSelect(event, player, object, sender, intid, code, menu_id)
     if intid == 2 then
         player:GossipComplete()
     else
+        
+
+
+
+
         player:Dismount()
         player:RemoveEvents()
-        object:AddAura(intid, player)
+        -- object:AddAura(intid, player)
+        player:Mount(1149)
         player:RegisterEvent( PlayerDismount, 60000 )
-        OnGossipHello(event, player, object)
     end
 end RegisterCreatureGossipEvent( npc, 2, OnGossipSelect )
 
