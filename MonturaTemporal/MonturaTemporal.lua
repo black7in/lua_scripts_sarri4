@@ -44,6 +44,8 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
         player:Mount(1149)
         player:RegisterEvent(PlayerDismount, 60000)
     end
+
+    player:GossipComplete()
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
