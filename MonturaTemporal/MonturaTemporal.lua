@@ -13,7 +13,9 @@ local function OnGossipHello(event, player, object)
 end
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
-local function PlayerDismount(eventid, delay, repeats, player) player:Dismount() end
+local function PlayerDismount(eventid, delay, repeats, player) 
+    player:Dismount() 
+end
 
 local function hasFoods(player)
     for _, food in ipairs(foods) do
@@ -44,6 +46,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
         player:Dismount()
         player:RemoveEvents()
         -- object:AddAura(intid, player)
+        player:AddAura(31700)
         player:Mount(1149)
         player:RegisterEvent(PlayerDismount, 60000)
     end
@@ -52,5 +55,11 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
-local function CheckMount(event, player) end
+local function CheckMount(event, player) 
+    if player:HasAura(31700) then
+        player:RemoveAura(31700)
+        player:Dismount()
+    end
+
+end
 RegisterPlayerEvent(3, CheckMount)
