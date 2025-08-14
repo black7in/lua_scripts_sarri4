@@ -19,7 +19,7 @@ local function OnGossipHello(event, player, object)
     end
 
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
+    player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false, "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
     player:GossipMenuAddItem(0, "Salir", 0, 2)
 
     player:SendGossipText(text, npc)
