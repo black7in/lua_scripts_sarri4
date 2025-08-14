@@ -1,10 +1,14 @@
 local npc = 50015
 
+local text = "¡Hola! Soy Chromie, la guardiana del tiempo. ¿Quieres ir de casería de Murlocs conmigo? ¡Será divertido! ¡Vamos a cazar algunos Murlocs juntos!"
+
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Quiero ir de casería de Murlocs", 0, 1)
     player:GossipMenuAddItem(0, "Salir", 0, 2)
-    player:GossipSendMenu(90000, object)
+
+    player:SendGossipText(text, npc)
+    player:GossipSendMenu(npc, object)
 end
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
