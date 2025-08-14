@@ -9,16 +9,13 @@ local positionZ = 269.70
 local positionO = 4.13
 local pistionMap = 37
 
-local text = "¡Hola! Soy Chromie, la guardiana del tiempo. ¿Quieres ir de cacería de Murlocs conmigo? ¡Será divertido! ¡Vamos a cazar algunos Murlocs juntos!"
-
-local estado = 0
+local text =
+    "¡Hola! Soy Chromie, la guardiana del tiempo. ¿Quieres ir de cacería de Murlocs conmigo? ¡Será divertido! ¡Vamos a cazar algunos Murlocs juntos!"
 
 local function OnGossipHello(event, player, object)
-    if estado == 1 then
-        return
-    end
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false, "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
+    player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false,
+                             "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
     player:GossipMenuAddItem(0, "Salir", 0, 2)
 
     player:SendGossipText(text, npc)
@@ -27,36 +24,29 @@ end
 
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
-local function CastSpellTeleport(eventid, delay, repeats, object) 
-    object:CastSpell( object, spellTeleport, false )
+local function CastSpellTeleport(eventid, delay, repeats, object)
+    object:CastSpell(object, spellTeleport, false)
 end
 
-local function EstadoO(eventid, delay, repeats, object) 
-    estado = 0
+local function EstadoO(eventid, delay, repeats, object)
     object:RemoveEvents()
 end
 
-local function TeleTransportarJugador(eventid, delay, repeats, player) 
+local function TeleTransportarJugador(eventid, delay, repeats, player)
     player:CastSpell(player, spellVisual, true)
-    player:Teleport( pistionMap, positionX, positionY, positionZ, positionO ) -- Teletransporte a la ubicación deseada
+    player:Teleport(pistionMap, positionX, positionY, positionZ, positionO) -- Teletransporte a la ubicación deseada
 end
 
-local function OnGossipSelect(event, player, object, sender, intid, code, menu_id)
+local function OnGossipSelect(event, player, object, sender, intid, code,
+                              menu_id)
     if intid == 1 then
-        if estado == 0 then
-            estado = 1
-            object:SendUnitSay("¡Genial! ¡Vamos a cazar Murlocs juntos!", 0)
-            object:RegisterEvent( CastSpellTeleport, 1000 )
-            player:RegisterEvent( TeleTransportarJugador, 3000, 1 )
-            object:RegisterEvent( EstadoO, 3000, 1 )
-        else
-            return
-        end
+        object:SendUnitSay("¡Genial! ¡Vamos a cazar Murlocs juntos!", 0)
+        object:RegisterEvent(CastSpellTeleport, 1000)
+        player:RegisterEvent(TeleTransportarJugador, 3000, 1)
+        object:RegisterEvent(EstadoO, 3000, 1)
     end
 
-    if intid == 2 then
-        object:SendUnitSay("¡Hasta luego!", 0)
-    end
+    if intid == 2 then object:SendUnitSay("¡Hasta luego!", 0) end
 
     player:GossipComplete()
 end
