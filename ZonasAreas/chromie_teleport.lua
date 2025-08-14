@@ -17,7 +17,6 @@ local function OnGossipHello(event, player, object)
     if estado == 1 then
         return
     end
-
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false, "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
     player:GossipMenuAddItem(0, "Salir", 0, 2)
@@ -49,7 +48,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             object:SendUnitSay("¡Genial! ¡Vamos a cazar Murlocs juntos!", 0)
             object:RegisterEvent( CastSpellTeleport, 1000 )
             player:RegisterEvent( TeleTransportarJugador, 3000, 1 )
-            object:RegisterEvent( EstadoO, 60000, 1 )
+            object:RegisterEvent( EstadoO, 3000, 1 )
         else
             return
         end
