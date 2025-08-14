@@ -14,8 +14,13 @@ local text =
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false,
-                             "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
+
+    if player:GetAreaId() == 268 then
+        player:GossipMenuAddItem(0, "Quiero salir de esta zona", 0, 3, false, "¡Claro! Te teletransportaré a un lugar seguro fuera de esta zona.")
+    else
+        player:GossipMenuAddItem(0, "Quiero ir de cacería de Murlocs", 0, 1, false, "Está bien, Chromie. ¡Vamos a cazar Murlocs!")
+    end
+
     player:GossipMenuAddItem(0, "Salir", 0, 2)
 
     player:SendGossipText(text, npc)
