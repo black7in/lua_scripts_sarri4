@@ -83,11 +83,11 @@ RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
 local CMSG_REPOP_REQUEST = 0x15A
 
-local function OnReceiveRepopRequest(event, player, packet)
+local function OnReceiveRepopRequest(event, packet, player)
     player:SendNotification("¡Has Recibido un repop!")
 end
 
-local function OnSendRepopRequest(event, player)
+local function OnSendRepopRequest(event, packet, player)
     player:SendNotification("¡Has enviado un repop!")
 end
 
