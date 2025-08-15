@@ -8,7 +8,7 @@ local function OnUpdateArea(event, player, oldArea, newArea)
         return -- No aplicar aura a GMs
     end
 
-    if playe:GetClass() == CLASS_DEATH_KNIGHT then
+    if player:GetClass() == CLASS_DEATH_KNIGHT then
         return -- No aplicar aura a Death Knights
     end
 
@@ -24,10 +24,10 @@ local function OnUpdateArea(event, player, oldArea, newArea)
     if isInStartArea then
         player:AddAura(doubleSpeed, player) -- aplicar aura de velocidad
         local aura = player:GetAura( doubleSpeed )
-        if aura then
+        --if aura then
             -- 1 hora en milisegundos
             --aura:SetDuration(3600000) -- 1 hora en milisegundos
-        end
+        --end
         return
     else
         -- si sale de las areas de inicio, eliminar aura de velocidad
