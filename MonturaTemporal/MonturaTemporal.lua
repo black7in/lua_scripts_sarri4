@@ -47,7 +47,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
         player:RemoveEvents()
         -- object:AddAura(intid, player)
         player:AddAura(31700, player)
-        player:Mount(1149)
+        player:Mount(24869)
         player:RegisterEvent(PlayerDismount, 60000)
     end
 
