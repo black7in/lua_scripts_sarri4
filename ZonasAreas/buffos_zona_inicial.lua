@@ -26,7 +26,7 @@ local function OnUpdateArea(event, player, oldArea, newArea)
         local aura = player:GetAura( doubleSpeed )
         if aura then
             -- 1 hora en milisegundos
-            aura:SetDuration(3600000) -- 1 hora en milisegundos
+            --aura:SetDuration(3600000) -- 1 hora en milisegundos
         end
         return
     else
