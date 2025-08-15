@@ -80,3 +80,10 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
     player:GossipComplete()
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
+
+
+local function OnRepop(event, player)
+    player:SendNotification("¡Has reaparecido en el punto de resurrección!")
+end
+
+RegisterPlayerEvent(35, OnRepop)
