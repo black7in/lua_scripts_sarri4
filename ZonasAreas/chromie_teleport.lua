@@ -84,8 +84,11 @@ RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 local CMSG_REPOP_REQUEST = 0x15A
 
 local function OnReceiveRepopRequest(event, packet, player)
-    player:SendNotification("¡Has Recibido un repop!")
-    return false
+    if player:GetAreaId() == 268 then
+        player:ResurrectPlayer( 100 )
+        player:Teleport(pistionMap, positionX, positionY, positionZ, positionO) -- Teletransporte a la ubicación deseada
+        return false
+    end
 end
 
 local function OnSendRepopRequest(event, packet, player)
