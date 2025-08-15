@@ -48,6 +48,6 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         object:SendUnitSay("¡Hasta luego! ¡Buena suerte con tus retos!", 0)
         player:GossipComplete()
     end
-    player:GossipComplete()
+    --player:GossipComplete()
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
