@@ -85,6 +85,7 @@ local CMSG_REPOP_REQUEST = 0x15A
 
 local function OnReceiveRepopRequest(event, packet, player)
     player:SendNotification("¡Has Recibido un repop!")
+    return false
 end
 
 local function OnSendRepopRequest(event, packet, player)
@@ -92,7 +93,7 @@ local function OnSendRepopRequest(event, packet, player)
 end
 
 RegisterPacketEvent( CMSG_REPOP_REQUEST, 5, OnReceiveRepopRequest )
-RegisterPacketEvent( CMSG_REPOP_REQUEST, 7, OnSendRepopRequest )
+--RegisterPacketEvent( CMSG_REPOP_REQUEST, 7, OnSendRepopRequest )
 
 local function OnRepop(event, player)
     if player:GetAreaId() == 268 then
