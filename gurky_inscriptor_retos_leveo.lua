@@ -47,6 +47,11 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     elseif intid == 10 then
         object:SendUnitSay("¡Hasta luego! ¡Buena suerte con tus retos!", 0)
         player:GossipComplete()
+    elseif intid == 20 then
+        OnGossipHello(event, player, object)
+    elseif intid == 11 then
+        object:SendUnitSay("Papi War todavia esta implementando esto! vete shuu regresa mas tarde.", 0)
+        player:GossipComplete()
     end
     --player:GossipComplete()
 end
