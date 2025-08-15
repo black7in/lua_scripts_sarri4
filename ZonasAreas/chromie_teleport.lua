@@ -81,6 +81,18 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
+local CMSG_REPOP_REQUEST = 0x15A
+
+local function OnReceiveRepopRequest(event, player, packet)
+    player:SendNotification("¡Has Recibido un repop!")
+end
+
+local function OnSendRepopRequest(event, player)
+    player:SendNotification("¡Has enviado un repop!")
+end
+
+RegisterPacketEvent( CMSG_REPOP_REQUEST, 5, OnReceiveRepopRequest )
+RegisterPacketEvent( CMSG_REPOP_REQUEST, 7, OnSendRepopRequest )
 
 local function OnRepop(event, player)
     if player:GetAreaId() == 268 then
@@ -89,4 +101,4 @@ local function OnRepop(event, player)
     end
 end
 
-RegisterPlayerEvent(35, OnRepop)
+-- RegisterPlayerEvent(35, OnRepop)
