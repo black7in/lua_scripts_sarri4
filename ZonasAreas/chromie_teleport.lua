@@ -83,7 +83,9 @@ RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
 
 local function OnRepop(event, player)
-    player:SendNotification("¡Has reaparecido en el punto de resurrección!")
+    if player:GetAreaId() == 268 then
+        player::ResurrectPlayer( 100 )
+    end
 end
 
 RegisterPlayerEvent(35, OnRepop)
