@@ -85,6 +85,7 @@ RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 local function OnRepop(event, player)
     if player:GetAreaId() == 268 then
         player:ResurrectPlayer( 100 )
+        player:Teleport(pistionMap, positionX, positionY, positionZ, positionO) -- Teletransporte a la ubicación deseada
     end
 end
 
