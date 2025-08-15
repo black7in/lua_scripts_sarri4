@@ -1,6 +1,6 @@
 local npc = 50016
 
-local text = "¡Hola! Soy Gurky, el de los retos de leveo.\n¿Quieres elegir un reto de leveo? ¡Será divertido! ¡Vamos a ver qué tan rápido puedes subir de nivel!"
+local text = "¡Hola! Soy Gurky, el de los retos de leveo.\n¿Quieres elegir un reto de leveo? ¡Será divertido!\n¡Vamos a ver qué tan rápido puedes subir de nivel!"
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
