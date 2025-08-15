@@ -1,6 +1,6 @@
 local npc = 50016
 
-local text = "¡Hola! Soy Gurky, el de los retos de leveo.\n¿Quieres elegir un reto de leveo? ¡Será divertido!\n¡Vamos a ver qué tan rápido puedes subir de nivel!"
+local text = "¡Saludos, aventurero! Soy Gurky, el maestro de los retos de leveo. Tengo desafíos únicos para poner a prueba tu valor, tu ingenio… y tu paciencia.\nPero cuidado: solo puedes elegir un reto, y una vez que lo aceptes, no hay marcha atrás. Tu camino quedará sellado hasta el final.\n\nAsí que elige sabiamente… y que la marea esté de tu lado."
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
