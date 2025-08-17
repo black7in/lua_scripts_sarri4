@@ -27,6 +27,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     elseif intid == 2 then
         --player:SendBroadcastMessage("¡Has elegido el Reto Artesano! ¡A mejorar tus habilidades!")
         local mensaje = "Aquí no hay botines fáciles ni regalos de monstruos caídos. Todo lo que uses deberá haber sido creado por ti mismo, usando tus profesiones. Forja tu propia armadura, fabrica tus armas y demuestra que un verdadero héroe se construye… pieza a pieza."
+        mensaje = mensaje .. "\n\nSi quieres mas información sobre este reto como reglas y premios, vista el canal de Discord o nuestro sitio web."
         player:GossipMenuAddItem(0, "Aceptar reto", 0, 11)
         player:GossipMenuAddItem(0, "Atras", 0, 20)
         player:SendGossipText(mensaje, npc)
@@ -34,6 +35,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     elseif intid == 3 then
         --player:SendBroadcastMessage("¡Has elegido el Reto Murlocfóbico! ¡A cazar Murlocs se ha dicho!")
         local mensaje = "Solo podrás subir de nivel matando Murlocs. No hay lobos, no hay orcos, no hay dragones: tu destino está ligado a esas criaturas parlantes de la costa. Conviértete en la pesadilla de todo Murloc que ose cruzarse en tu camino."
+        mensaje = mensaje .. "\n\nSi quieres mas información sobre este reto como reglas y premios, vista el canal de Discord o nuestro sitio web."
         player:GossipMenuAddItem(0, "Aceptar reto", 0, 11)
         player:GossipMenuAddItem(0, "Atras", 0, 20)
         player:SendGossipText(mensaje, npc)
@@ -41,6 +43,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     elseif intid == 4 then
         --player:SendBroadcastMessage("¡Has elegido el Reto Maestro de Oficios! ¡A dominar las profesiones!")
         local mensaje = "Nada de espadas ni de arcos: tu poder proviene de tus profesiones. Sube de nivel únicamente fabricando, recolectando y perfeccionando tus habilidades artesanales. Un reto para mentes pacientes y manos maestras."
+        mensaje = mensaje .. "\n\nSi quieres mas información sobre este reto como reglas y premios, vista el canal de Discord o nuestro sitio web."
         player:GossipMenuAddItem(0, "Aceptar reto", 0, 11)
         player:GossipMenuAddItem(0, "Atras", 0, 20)
         player:SendGossipText(mensaje, npc)
