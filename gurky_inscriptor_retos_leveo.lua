@@ -19,6 +19,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     if intid == 1 then
         --player:SendBroadcastMessage("¡Has elegido el Reto Hardcore! Prepárate para una experiencia desafiante.")
         local mensaje = "En este desafío, cada combate es una apuesta con tu vida. Si mueres, tu aventura termina para siempre. Solo los más cautelosos, estratégicos y valientes llegarán al final. ¿Tienes lo necesario para sobrevivir?"
+        mensaje += "\n\nSi quieres mas información sobre este reto como reglas y premios, vista el canal de Discord o nuestro sitio web."
         player:GossipMenuAddItem(0, "Aceptar reto", 0, 11)
         player:GossipMenuAddItem(0, "Atras", 0, 20)
         player:SendGossipText(mensaje, npc)
