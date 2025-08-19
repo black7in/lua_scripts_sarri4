@@ -60,7 +60,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             return
         end
 
-        if player:GetLevelUpTyoe() ~= LEVEL_TYPE_NORMAL then
+        if player:GetLevelUpType() ~= LEVEL_TYPE_NORMAL then
             player:SendNotification("¡Ya has aceptado un reto! No puedes cambiarlo.")
             player:GossipComplete()
             return
