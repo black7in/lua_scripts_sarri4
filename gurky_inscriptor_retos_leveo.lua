@@ -1,11 +1,11 @@
 local npc = 50016
 
-local text = "¡Saludos, aventurero! Soy Gurky, el maestro de los retos de leveo. Tengo desafíos únicos para poner a prueba tu valor, tu ingenio… y tu paciencia.\nPero cuidado: solo puedes elegir un reto, y una vez que lo aceptes, no hay marcha atrás. Tu camino quedará sellado hasta el final.\n\nAsí que elige sabiamente… y que la marea esté de tu lado.\n\nSi no aceptas ningún reto tu progreso en el leveo es normal x6."
+local text = "¡Saludos, aventurero! Soy Gurky, el maestro de los retos de leveo. Tengo desafíos únicos para poner a prueba tu valor, tu ingenio… y tu paciencia.\nPero cuidado: solo puedes elegir un reto, y una vez que lo aceptes, no hay marcha atrás. Tu camino quedará sellado hasta el final.\n\nAsí que elige sabiamente… y que la marea esté de tu lado.\n\n|cff00ff00IMPORTANTE!!|r:Si no aceptas ningún reto tu progreso en el leveo es normal x6."
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/Ability_Creature_Cursed_02:28:28:-15:0|t Reto Hardcore", 0, 1)
     player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/INV_Chest_Leather_09:28:28:-15:0|t Reto Artesano", 0, 2)
+    player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/Ability_Creature_Cursed_02:28:28:-15:0|t Reto Hardcore", 0, 1)
     player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/inv_misc_head_murloc_01:28:28:-15:0|t Reto Murlocfóbico", 0, 3)
     player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/Trade_BlackSmithing:28:28:-15:0|t Reto Maestro de Oficios", 0, 4)
     player:GossipMenuAddItem(0, "Salir", 0, 10)
