@@ -10,6 +10,10 @@ local function OnGossipHello(event, player, object)
         player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/inv_misc_head_murloc_01:28:28:-15:0|t Reto Murlocfóbico", 0, 3)
         player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/Trade_BlackSmithing:28:28:-15:0|t Reto Maestro de Oficios", 0, 4)
     end
+
+    if player:GetLevelUpType() == LEVEL_TYPE_MURLOCFOBICO then
+        player:GossipMenuAddItem(0, "|TINTERFACE/ICONS/inv_misc_head_murloc_01:28:28:-15:0|t Zona de Murlocfóbicos", 0, 12, false, "Seguro que quieres ir a la zona de Murlocfóbicos? Aquí solo podrás subir de nivel matando Murlocs. ¡Buena suerte!")
+    end
     player:GossipMenuAddItem(0, "Salir", 0, 10)
     player:SendGossipText(text, npc)
     player:GossipSendMenu(npc, object)
@@ -87,6 +91,10 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         end
 
         object:SendUnitSay("¡Excelente elección! Que la marea esté de tu lado.", 0)
+        player:GossipComplete()
+    elseif intid == 12 then
+        player:Teleport(1, 4617.81, -3851.19, 944.648, 1.09499)
+        player:SendBroadcastMessage("¡Bienvenido a la zona de Murlocfóbicos! Aquí podrás subir de nivel matando Murlocs. ¡Buena suerte!")
         player:GossipComplete()
     end
     --player:GossipComplete()
