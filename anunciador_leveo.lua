@@ -14,7 +14,7 @@ local messages = {
         "Reto Murlocfóbico: El terror de los Murlocs, [Jugador], alcanza el nivel [X].",
         "Reto Murlocfóbico: [Jugador] continúa la masacre Murloc: nivel [X] en el Reto Murlocfóbico."
     },
-    [LEVEL_TYPE_MAESTRO_OFICIOS] = {
+    [LEVEL_TYPE_MAESTRO] = {
         "Reto Maestro de Oficios: [Jugador] sube al nivel [X] solo con sus profesiones en el Reto Maestro de Oficios.",
         "Reto Maestro de Oficios: Entre fogones y yunques, [Jugador] alcanza el nivel [X].",
         "Reto Maestro de Oficios: [Jugador] demuestra maestría y llega al nivel [X] en el Reto Maestro de Oficios."
