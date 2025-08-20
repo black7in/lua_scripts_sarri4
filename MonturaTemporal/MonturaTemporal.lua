@@ -20,7 +20,14 @@ end
 local function hasFoods(player)
     for _, food in ipairs(foods) do
         if player:HasItem(food) then
-            return food
+            local item = player:GetItemByEntry(food)
+            local requiredLevel = item:GetRequiredLevel()
+            local playerLevel = player:GetLevel()
+
+            -- si hay diferencia de 5 niveles entonces return food
+            if playerLevel - requiredLevel <= 5 then
+                return food
+            end
         end
     end
 
@@ -34,7 +41,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
     else
         local food = hasFoods(player)
         if food == 0 then
-            object:SendUnitSay("¡No tienes comida para alimentarme!", 0)
+            object:SendUnitSay("¡No seas tacaño y comprame comida de tu nivel!", 0)
             player:GossipComplete()
 
             --print(object:GetGUIDLow())
