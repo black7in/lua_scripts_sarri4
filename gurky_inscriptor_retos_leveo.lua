@@ -136,10 +136,50 @@ RegisterPlayerEvent(63, OnCanQuestAccept)
 
 local function OnQuestAdd(event, player, quest)
     if quest >= 60000 and quest <= 60004 then
-        print("Quest ID: " .. quest .. " added for player: " .. player:GetName())
+        --print("Quest ID: " .. quest .. " added for player: " .. player:GetName())
         local level = player:GetLevel()
         player:SendQuestUpdateAddCreature(quest, 0, level)
     end
 end 
 
 RegisterPlayerEvent(64, OnQuestAdd)
+
+local function OnLevelChange(event, player, oldLevel)
+    if player:HasQuest(60000) then
+        local level = player:GetLevel()
+        local cantidad = level - oldLevel
+        -- Aqu hay que arreglar que tamien se pueda enviar valores negativos y no solo de uint
+        player:SendQuestUpdateAddCreature(60000, 0, cantidad)
+    end
+
+    if player:HasQuest(60001) then
+        local level = player:GetLevel()
+        local cantidad = level - oldLevel
+        -- Aqu hay que arreglar que tamien se pueda enviar valores negativos y no solo de uint
+        player:SendQuestUpdateAddCreature(60001, 0, cantidad)
+    end
+
+    if player:HasQuest(60002) then
+        local level = player:GetLevel()
+        local cantidad = level - oldLevel
+        -- Aqu hay que arreglar que tamien se pueda enviar valores negativos y no solo de uint
+        player:SendQuestUpdateAddCreature(60002, 0, cantidad)
+    end
+
+    if player:HasQuest(60003) then
+        local level = player:GetLevel()
+        local cantidad = level - oldLevel
+        -- Aqu hay que arreglar que tamien se pueda enviar valores negativos y no solo de uint
+        player:SendQuestUpdateAddCreature(60003, 0, cantidad)
+    end
+
+    if player:HasQuest(60004) then
+        local level = player:GetLevel()
+        local cantidad = level - oldLevel
+        -- Aqu hay que arreglar que tamien se pueda enviar valores negativos y no solo de uint
+        player:SendQuestUpdateAddCreature(60004, 0, cantidad)
+    end
+
+end
+
+RegisterPlayerEvent(13, OnLevelChange)
