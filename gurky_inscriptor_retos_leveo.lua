@@ -107,8 +107,27 @@ RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
 
 local function OnCanQuestAccept(event, player, quest)
-    print(quest)
-
+    if quest == 60000 then
+        if player:GetLevelUpType() ~= LEVEL_TYPE_HARDCORE then
+            player:SendNotification("¡No puedes aceptar esta misión! Solo disponible para el Reto Hardcore.")
+            return false
+        end
+    elseif quest == 60002 then
+        if player:GetLevelUpType() ~= LEVEL_TYPE_ARTESANO then
+            player:SendNotification("¡No puedes aceptar esta misión! Solo disponible para el Reto Artesano.")
+            return false
+        end
+    elseif quest == 60003 then
+        if player:GetLevelUpType() ~= LEVEL_TYPE_MURLOCFOBICO then
+            player:SendNotification("¡No puedes aceptar esta misión! Solo disponible para el Reto Murlocfóbico.")
+            return false
+        end
+    elseif quest == 60004 then
+        if player:GetLevelUpType() ~= LEVEL_TYPE_MAESTRO then
+            player:SendNotification("¡No puedes aceptar esta misión! Solo disponible para el Reto Maestro de Oficios.")
+            return false
+        end
+    end
 end
 
 RegisterPlayerEvent(63, OnCanQuestAccept)
