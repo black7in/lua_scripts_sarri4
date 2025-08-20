@@ -128,6 +128,8 @@ local function OnCanQuestAccept(event, player, quest)
             return false
         end
     end
+
+    return true
 end
 
 RegisterPlayerEvent(63, OnCanQuestAccept)
