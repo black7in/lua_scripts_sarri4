@@ -1,6 +1,6 @@
 local npc = 50016
 
-local text = "¡Saludos, aventurero! Soy Gurky, el maestro de los retos de leveo. Tengo desafíos únicos para poner a prueba tu valor, tu ingenio… y tu paciencia.\nPero cuidado: solo puedes elegir un reto, y una vez que lo aceptes, no hay marcha atrás. Tu camino quedará sellado hasta el final.\n\nAsí que elige sabiamente… y que la marea esté de tu lado.\n\n|cffff0000IMPORTANTE!!|r: Si no aceptas ningún reto tu progreso en el leveo es normal x6."
+local text = "¡Saludos, aventurero! Soy Gurky, el maestro de los retos de leveo. Tengo desafíos únicos para poner a prueba tu valor, tu ingenio… y tu paciencia.\nPero cuidado: solo puedes elegir un reto, y una vez que lo aceptes, no hay marcha atrás. Tu camino quedará sellado hasta el final.\n\nAsí que elige sabiamente… y que la marea esté de tu lado.\n\n|cffff0000IMPORTANTE!!|r: Si no aceptas ningún reto tu progreso en el leveo es normal sin ningun tipo de restricciones con rates x6."
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
@@ -76,18 +76,22 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             -- Reto Hardcore
             player:SetLevelUpType(LEVEL_TYPE_HARDCORE)
             player:SendBroadcastMessage("¡Has aceptado el Reto Hardcore! Tu aventura será más desafiante.")
+            --player:AddQuest( 60000 )
         elseif sender == 2 then
             -- Reto Artesano
             player:SetLevelUpType(LEVEL_TYPE_ARTESANO)
             player:SendBroadcastMessage("¡Has aceptado el Reto Artesano! Tu habilidad en las profesiones será tu mayor aliado.")
+            --player:AddQuest( 60002 )
         elseif sender == 3 then
             -- Reto Murlocfóbico
             player:SetLevelUpType(LEVEL_TYPE_MURLOCFOBICO)
             player:SendBroadcastMessage("¡Has aceptado el Reto Murlocfóbico! Tu destino está ligado a los Murlocs.")
+            --player:AddQuest( 60003 )
         elseif sender == 4 then
             -- Reto Maestro de Oficios
             player:SetLevelUpType(LEVEL_TYPE_MAESTRO)
             player:SendBroadcastMessage("¡Has aceptado el Reto Maestro de Oficios! Tu poder proviene de tus profesiones.")
+            --player:AddQuest( 60004 )
         end
 
         object:SendUnitSay("¡Excelente elección! Que la marea esté de tu lado.", 0)
@@ -100,3 +104,11 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     --player:GossipComplete()
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
+
+
+local function OnCanQuestAccept(event, player, quest)
+    print(quest)
+
+end
+
+RegisterPlayerEvent(64, OnCanQuestAccept)
