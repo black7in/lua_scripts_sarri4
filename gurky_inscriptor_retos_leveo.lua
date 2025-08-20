@@ -111,4 +111,4 @@ local function OnCanQuestAccept(event, player, quest)
 
 end
 
-RegisterPlayerEvent(64, OnCanQuestAccept)
+RegisterPlayerEvent(63, OnCanQuestAccept)
