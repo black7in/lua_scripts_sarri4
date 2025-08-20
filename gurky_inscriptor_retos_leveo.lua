@@ -133,3 +133,12 @@ local function OnCanQuestAccept(event, player, quest)
 end
 
 RegisterPlayerEvent(63, OnCanQuestAccept)
+
+local function OnQuestAdd(event, player, quest)
+    if quest >= 60000 and quest <= 60004 then
+        local level = player:GetLevel()
+        player:SendQuestUpdateAddCreature(quest, 0, level)
+    end
+end 
+
+RegisterPlayerEvent(64, OnQuestAdd)
