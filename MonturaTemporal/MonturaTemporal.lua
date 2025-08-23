@@ -41,7 +41,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
     else
         local food = hasFoods(player)
         if food == 0 then
-            object:SendUnitSay("¡No seas tacaño y comprame comida de tu nivel!", 0)
+            object:SendUnitSay("¡No seas tacaño! y comprame comida de tu nivel o superior", 0)
             player:GossipComplete()
 
             --print(object:GetGUIDLow())
