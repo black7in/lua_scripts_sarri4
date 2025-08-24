@@ -25,4 +25,4 @@ local function OnTeleportGraveYard(event, player, mapId, x, y, z)
 
 end
 
-RegisterPlayerEvent(66, OnTeleportGraveYard)
+RegisterPlayerEvent(65, OnTeleportGraveYard)
