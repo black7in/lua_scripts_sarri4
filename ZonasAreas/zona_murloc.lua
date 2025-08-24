@@ -13,6 +13,9 @@ end
 -- RegisterPacketEvent( CMSG_REPOP_REQUEST, 5, OnReceiveRepopRequest )
 --66
 local function OnTeleportGraveYard(event, player, mapId, x, y, z)
+    print("OnTeleportGraveYard called for player: " .. player:GetName())
+    print("Player Map ID: " .. mapId)
+    print("Player Coordinates: (" .. x .. ", " .. y .. ", " .. z .. ")")
     if player:GetAreaId() == AreaId then
         -- Teletransportar al jugador a la zona Murloc
         player:SendNotification("Has sido teletransportado a la Zona Murloc.")
