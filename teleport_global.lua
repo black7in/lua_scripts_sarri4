@@ -33,6 +33,7 @@ local function OnGossipHello(event, player, object)
         player:GossipMenuAddItem(2, coords[6], 0, i + 10, false, "¿Quieres ir a " .. coords[6] .. "?")
     end
 
+    player:SendGossipText("Teletransportate gratis cuando quieras, recuerda que no puedes transportarte mientras estas en combate.", 90002) -- Aquí puedes poner el texto que quieras mostrar al jugador
     player:GossipSendMenu(90002, object)
 end
 RegisterCreatureGossipEvent(npcEntry, 1, OnGossipHello)
