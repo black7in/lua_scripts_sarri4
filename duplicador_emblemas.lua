@@ -56,4 +56,5 @@ local function OnStoreNewItem(event, player, item, count)
     end
 end
 
-RegisterPacketEvent(53, 1, OnStoreNewItem)
+-- Aqui se puede generar un bucle bien gacho, pq dare add y otra vez y otra vez jejeje lo unic que veo es modificar esa mrd
+-- RegisterPacketEvent(53, OnStoreNewItem)
