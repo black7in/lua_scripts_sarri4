@@ -21,10 +21,10 @@ local function OnLogin(event, player)
             json,
             "application/json",
             function(status, body, headers)
-                print("Webhook enviado. Estado: " .. status)
-                if body then
-                    print("Respuesta: " .. body)
-                end
+                -- print("Webhook enviado. Estado: " .. status)
+                -- if body then
+                    -- print("Respuesta: " .. body)
+                -- end
             end
         )
     end

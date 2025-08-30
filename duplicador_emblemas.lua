@@ -19,7 +19,7 @@ local function OnLootItem(event, player, item, count)
     end
 end
 
-RegisterPlayerEvent(32, OnLootItem)
+-- RegisterPlayerEvent(32, OnLootItem)
 
 
 local function OnQuestRewardItem(event, player, item, count)
@@ -38,4 +38,4 @@ local function OnQuestRewardItem(event, player, item, count)
     end
 end
 
-RegisterPlayerEvent(51, OnQuestRewardItem)
+-- RegisterPlayerEvent(51, OnQuestRewardItem)
