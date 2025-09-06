@@ -1,7 +1,7 @@
 
 local areasInicio = {9, 363, 24, 59, 34, 364, 365, 132, 800, 188, 256, 3526, 3560, 3528, 3529, 3559, 2117, 154, 155, 221, 220, 358, 3431, 3458}
 
-local doubleSpeed = 59737
+local doubleSpeed = 36479
 
 local function OnUpdateArea(event, player, oldArea, newArea)
     if player:IsGM() then
