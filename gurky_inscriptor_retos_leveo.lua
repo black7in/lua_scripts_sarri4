@@ -132,7 +132,7 @@ local function OnCanQuestAccept(event, player, quest)
     return true
 end
 
-RegisterPlayerEvent(63, OnCanQuestAccept)
+RegisterPlayerEvent(64, OnCanQuestAccept)
 
 local function OnQuestAdd(event, player, quest)
     if quest >= 60000 and quest <= 60004 then
@@ -142,7 +142,7 @@ local function OnQuestAdd(event, player, quest)
     end
 end 
 
-RegisterPlayerEvent(64, OnQuestAdd)
+RegisterPlayerEvent(65, OnQuestAdd)
 
 local function OnLevelChange(event, player, oldLevel)
     if player:HasQuest(60000) then
