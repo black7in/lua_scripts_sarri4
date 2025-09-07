@@ -10,7 +10,7 @@ end
 local function OnGossipSelect(event, player, object, sender, intid, code, menu_id)
     if intid == 1 then
         local mapId = 1
-        player::UnbindInstance( mapId )
+        player:UnbindInstance( mapId )
         player:SendBroadcastMessage("Tu registro de la instancia ha sido reiniciado.")
     end
 end
