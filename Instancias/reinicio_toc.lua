@@ -1,5 +1,5 @@
 local npc = 60501
-local cantidadOro = 5000000 -- 500 gold
+local cantidadOro = 2500000 -- 250 gold
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
