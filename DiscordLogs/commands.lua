@@ -1,6 +1,6 @@
 local function OnCommand(event, player, command)
     local realmId = GetRealmID()
-    if realmId == 2 then
+    if realmId == 1 then
         local accountName = player:GetAccountName()
         local json = [[
         {
