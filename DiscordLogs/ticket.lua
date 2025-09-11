@@ -1,7 +1,7 @@
 local function OnCreateTicket(event, player, ticket)
     local realmId = GetRealmID()
     if realmId == 2 then
-        local playerName = player:GetName()
+        local playerName = ticket:GetPlayerName()
         local accountName = player:GetAccountName()
         local ticketId = ticket:GetId()
         local ticketMessage = ticket:GetMessage()
