@@ -16,7 +16,7 @@ local function OnCommand(event, player, command)
         
         HttpRequest(
             "POST",
-            "https://discord.com/api/webhooks/1400275132370653286/VUKbGq7tQ9WMGfb43OAZGTRQaye18marw7Lows9vmns9rA_2SFmFGjfIU8JWXbYsKLG9",
+            "https://discord.com/api/webhooks/1415489313180749917/rzpJFTbJ5Bur_Ny5hvU-B1n9tb67llHwx2o33yvw4uHY9s39HaN5ZEMkRuvxMXMJX-n0",
             json,
             "application/json",
             function(status, body, headers)
