@@ -8,7 +8,7 @@ local function OnCommand(event, player, command)
             {
               "title": "📢 Comando detectado",
               "description": "La cuenta GM **]] .. accountName .. [[** ejecutó el comando: **]] .. command .. [[**.",
-              "color": 16711680
+              "color": 8900331
             }
           ]
         }
