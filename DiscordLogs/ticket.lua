@@ -29,4 +29,4 @@ local function OnCreateTicket(event, player, ticket)
     end
 end
 
-RegisterTicketEvent( 1, OnCreateTicket )
+--RegisterTicketEvent( 1, OnCreateTicket )
