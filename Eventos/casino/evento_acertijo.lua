@@ -380,6 +380,7 @@ local function OnGossipHello(event, player, object)
 
         player:SendGossipText(text, npc)
     else
+        player:SendRaidNotification("¡Nueva pregunta! Responde rápido.")
         local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n" .. "\n1. " .. preguntaActual.opciones[1] .. "\n2. " ..
                              preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4] ..
                              "\n\nTienes 10 segundos para enviar la respuesta (1-4)."
@@ -398,7 +399,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     if intid == 1 then
         if player:HasItem(ficha, 10) then
             player:RemoveItem(ficha, 10)
-            player:SendNotification("Que empiece el juego!")
+            player:SendRaidNotification("Que empiece el juego!")
             preguntaActual = getPreguntaAleatoria()
             OnGossipHello(event, player, object)
         else
@@ -421,6 +422,8 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         else
             local correcta = preguntaActual.opciones[preguntaActual.respuesta_correcta]
             player:SendNotification("Incorrecto. La respuesta correcta era: " .. correcta .. ". ¡Inténtalo de nuevo!")
+            player:RemoveEvents() -- Detener el conteo regresivo
+            count = 10
             preguntaActual = nil
             player:GossipComplete()
         end
