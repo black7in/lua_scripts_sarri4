@@ -366,7 +366,9 @@ function StartCountdown(eventid, delay, repeats, player)
     else
         player:SendRaidNotification("¡Tiempo terminado!")
         preguntaActual = nil
-        --count = 10
+        count = 10
+        player:GossipComplete()
+        player:RemoveEvents() -- Detener el evento
     end
 end
 
@@ -384,7 +386,7 @@ local function OnGossipHello(event, player, object)
         player:GossipMenuAddItem(0, "Responder opción (1-4)", 0, 2, true)
         player:SendGossipText(pregunta, npc)
         -- Crear evento para el siguiente segundo (1000ms = 1 segundo)  
-        player:RegisterEvent(StartCountdown, 1000, 10)
+        player:RegisterEvent(StartCountdown, 1000, 11)
     end
 
     player:GossipSendMenu(npc, object)
