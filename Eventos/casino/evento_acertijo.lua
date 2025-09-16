@@ -366,6 +366,25 @@ local function verificarRespuesta(pregunta, respuestaJugador)
     return respuestaJugador == pregunta.respuesta_correcta
 end
 
+-- Función para crear un conteo regresivo de 10 segundos  
+function StartCountdown(player)  
+    local count = 10  
+      
+    local function countdown()  
+        if count > 0 then  
+            player:SendRaidNotification("Conteo regresivo: " .. count)  
+            count = count - 1  
+            -- Crear evento para el siguiente segundo (1000ms = 1 segundo)  
+            CreateLuaEvent(countdown, 1000, 1)  
+        else  
+            player:SendNotification("¡Tiempo terminado!")
+            preguntaActual = nil  
+        end  
+    end  
+      
+    -- Iniciar el conteo regresivo  
+    countdown()  
+end 
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
@@ -378,6 +397,7 @@ local function OnGossipHello(event, player, object)
         local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n".."\n1. " .. preguntaActual.opciones[1] .. "\n2. " .. preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4].. "\n\nTienes 10 segundos para enviar la respuesta (1-4)."
         player:GossipMenuAddItem(0, "Responder opción (1-4)", 0, 2, true)
         player:SendGossipText(pregunta, npc)
+        StartCountdown(player)  -- Iniciar el conteo regresivo de 10 segundos
     end
 
     player:GossipSendMenu(npc, object)
@@ -396,8 +416,14 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:SendNotification("No tienes suficientes Fichas para jugar. Necesitas 10 Fichas.")
         end
     elseif intid == 2 then
+        if preguntaActual == nil then
+            player:SendNotification("No hay una pregunta activa. Inicia un nuevo juego.")
+            player:GossipComplete() 
+            return
+        end
+
         if verificarRespuesta(preguntaActual, tonumber(code)) then
-            player:SendNotification("¡Correcto! Has ganado 2 Fichas.")
+            player:SendNotification("|CFF00FF00¡Correcto! Has ganado 2 Fichas.|r")
             player:AddItem(ficha, 2)
             preguntaActual = getPreguntaAleatoria()
             OnGossipHello(event, player, object)
