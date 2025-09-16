@@ -436,7 +436,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:SendNotification("Incorrecto. La respuesta correcta era: " .. correcta .. ". ¡Inténtalo de nuevo!")
             player:RemoveEvents() -- Detener el conteo regresivo
             cache[player:GetGUIDLow()].count = 10
-            cache[player:GetGUIDLow()].preguntaActual = 
+            cache[player:GetGUIDLow()].preguntaActual = nil
             cache[player:GetGUIDLow()].usadas = {}
             player:GossipComplete()
         end
