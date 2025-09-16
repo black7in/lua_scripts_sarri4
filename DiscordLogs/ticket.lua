@@ -12,7 +12,7 @@ local function OnCreateTicket(event, player, ticket)
             {
               "title": "🎫 Ticket creado",
               "description": "@everyone El jugador **]] .. playerName .. [[** (cuenta: **]] .. accountName .. [[**) ha creado un ticket.\n\n**ID del Ticket:** ]] .. ticketId .. [[\n**Mensaje:** ]] .. ticketMessage .. [[",
-              "color": 3066993
+              "color": 3066994
             }
           ]
         }
