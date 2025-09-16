@@ -415,6 +415,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:SendNotification("|CFF00FF00¡Correcto! Has ganado 2 Fichas.|r")
             player:AddItem(ficha, 2)
             player:RemoveEvents() -- Detener el conteo regresivo
+            count = 10
             preguntaActual = getPreguntaAleatoria()
             OnGossipHello(event, player, object)
         else
