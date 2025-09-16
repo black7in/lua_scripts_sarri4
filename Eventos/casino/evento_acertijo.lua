@@ -3,7 +3,7 @@ local ficha = 49224
 
 -- Este npc es un npc para jugar juegos como por ejemplo Trivia
 local text =
-    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 2 monedas de oro por pregunta si respondes correctamente.\n\nPara responder solo debes enviar la opcion correcta.\n\nEjemplo: Ultimo Boss de ICC?\nOpcion 1: Lich King\nOpcion 2: Sinda\nOpcion 3: Lord Tuetano\n\nLa respuesta correcta es Opción 1 por tanto debes enviar el número 1"
+    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 2 fichas por pregunta si respondes correctamente.\n\nPara responder solo debes enviar la opcion correcta.\n\nEjemplo: Ultimo Boss de ICC?\nOpcion 1: Lich King\nOpcion 2: Sindra\nOpcion 3: Lord Tuetano\n\nLa respuesta correcta es Opción 1 por tanto debes enviar el número 1"
 
 local trivia = {
     {pregunta = "¿Quién fue el primer Rey Exánime?", opciones = {"Ner'zhul", "Arthas", "Kel'Thuzad", "Bolvar Fordragon"}, respuesta_correcta = 2},
@@ -336,19 +336,37 @@ local trivia = {
     }
 }
 
-local function mostrarPregunta(p)
-    print(p.pregunta)
-    for i, opcion in ipairs(p.opciones) do print(i .. ". " .. opcion) end
+-- tabla para guardar índices ya usados
+local usadas = {}
+local preguntaActual = nil
+
+-- función para obtener una pregunta aleatoria que no se haya repetido
+local function getPreguntaAleatoria()
+    -- si ya salieron todas, reinicia
+    if #usadas >= #trivia then
+        usadas = {}
+    end
+
+    local index
+    repeat
+        index = math.random(1, #trivia)
+    until not usadas[index]
+
+    usadas[index] = true
+    return trivia[index]
 end
 
 local function verificarRespuesta(p, respuesta) return p.respuesta_correcta == respuesta end
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Iniciar Juego", 0, 1, false, "¿Quieres intentarlo? debes depositar monedas de oro.", 100000)
-    player:GossipMenuAddItem(0, "Salir", 0, 2)
+    if preguntaActual == nil then
+        player:GossipMenuAddItem(0, "Iniciar Juego", 0, 1, false, "¿Quieres intentarlo? debes depositar 10 Fichas.")
+        player:GossipMenuAddItem(0, "Salir", 0, 3)
+    
+        player:SendGossipText(text, npc)
+    end
 
-    player:SendGossipText(text, npc)
     player:GossipSendMenu(npc, object)
 end
 
@@ -359,11 +377,15 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         if player:HasItem(ficha, 10) then
             player:RemoveItem(ficha, 10)
             player:SendNotification("Que empiece el juego!")
-
+            preguntaActual = getPreguntaAleatoria()
         else
             player:SendNotification("No tienes suficientes Fichas para jugar. Necesitas 10 Fichas.")
         end
+    elseif intid == 2 then
+    elseif intid == 3 then
+        player:SendUnitSay("¡Hasta luego!", 0)
+        player:GossipComplete() 
     end
-    player:GossipComplete() 
 end
+
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
