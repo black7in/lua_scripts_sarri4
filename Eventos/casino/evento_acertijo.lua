@@ -339,65 +339,52 @@ local trivia = {
 -- tabla para guardar índices ya usados
 local usadas = {}
 local preguntaActual = nil
-
+local count = 10
 -- función para obtener una pregunta aleatoria que no se haya repetido
 local function getPreguntaAleatoria()
     -- si ya salieron todas, reinicia
-    if #usadas >= #trivia then
-        usadas = {}
-    end
+    if #usadas >= #trivia then usadas = {} end
 
     local index
-    repeat
-        index = math.random(1, #trivia)
-    until not usadas[index]
+    repeat index = math.random(1, #trivia) until not usadas[index]
 
     usadas[index] = true
     return trivia[index]
 end
 
 local function verificarRespuesta(pregunta, respuestaJugador)
-    if type(respuestaJugador) ~= "number" then
-        return false
-    end
-    if respuestaJugador < 1 or respuestaJugador > #pregunta.opciones then
-        return false
-    end
+    if type(respuestaJugador) ~= "number" then return false end
+    if respuestaJugador < 1 or respuestaJugador > #pregunta.opciones then return false end
     return respuestaJugador == pregunta.respuesta_correcta
 end
 
 -- Función para crear un conteo regresivo de 10 segundos  
-function StartCountdown(player)  
-    local count = 10  
-      
-    local function countdown()  
-        if count > 0 then  
-            player:SendRaidNotification("Conteo regresivo: " .. count)  
-            count = count - 1  
-            -- Crear evento para el siguiente segundo (1000ms = 1 segundo)  
-            player:RegisterEvent(countdown, 1000, 10)  
-        else  
-            player:SendNotification("¡Tiempo terminado!")
-            preguntaActual = nil  
-        end  
-    end  
-      
-    -- Iniciar el conteo regresivo  
-    countdown()  
-end 
+function StartCountdown(player)
+    if count > 0 then
+        player:SendRaidNotification("Conteo regresivo: " .. count)
+        count = count - 1
+    else
+        player:SendNotification("¡Tiempo terminado!")
+        preguntaActual = nil
+        count = 10
+    end
+end
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
     if preguntaActual == nil then
         player:GossipMenuAddItem(0, "Iniciar Juego", 0, 1, false, "¿Quieres intentarlo? debes depositar 10 Fichas.")
         player:GossipMenuAddItem(0, "Salir", 0, 3)
-    
+
         player:SendGossipText(text, npc)
     else
-        local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n".."\n1. " .. preguntaActual.opciones[1] .. "\n2. " .. preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4].. "\n\nTienes 10 segundos para enviar la respuesta (1-4)."
+        local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n" .. "\n1. " .. preguntaActual.opciones[1] .. "\n2. " ..
+                             preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4] ..
+                             "\n\nTienes 10 segundos para enviar la respuesta (1-4)."
         player:GossipMenuAddItem(0, "Responder opción (1-4)", 0, 2, true)
         player:SendGossipText(pregunta, npc)
-        StartCountdown(player)  -- Iniciar el conteo regresivo de 10 segundos
+        -- Crear evento para el siguiente segundo (1000ms = 1 segundo)  
+        player:RegisterEvent(StartCountdown, 1000, 10)
     end
 
     player:GossipSendMenu(npc, object)
@@ -405,7 +392,7 @@ end
 
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
-local function OnGossipSelect(event, player, object, sender, intid, code, menu_id) 
+local function OnGossipSelect(event, player, object, sender, intid, code, menu_id)
     if intid == 1 then
         if player:HasItem(ficha, 10) then
             player:RemoveItem(ficha, 10)
@@ -418,7 +405,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     elseif intid == 2 then
         if preguntaActual == nil then
             player:SendNotification("No hay una pregunta activa. Inicia un nuevo juego.")
-            player:GossipComplete() 
+            player:GossipComplete()
             return
         end
 
@@ -431,11 +418,11 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             local correcta = preguntaActual.opciones[preguntaActual.respuesta_correcta]
             player:SendNotification("Incorrecto. La respuesta correcta era: " .. correcta .. ". ¡Inténtalo de nuevo!")
             preguntaActual = nil
-            player:GossipComplete() 
+            player:GossipComplete()
         end
     elseif intid == 3 then
         player:SendUnitSay("¡Hasta luego!", 0)
-        player:GossipComplete() 
+        player:GossipComplete()
     end
 end
 
