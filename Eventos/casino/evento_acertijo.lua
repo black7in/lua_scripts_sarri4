@@ -375,7 +375,7 @@ function StartCountdown(player)
             player:SendRaidNotification("Conteo regresivo: " .. count)  
             count = count - 1  
             -- Crear evento para el siguiente segundo (1000ms = 1 segundo)  
-            CreateLuaEvent(countdown, 1000)  
+            player:RegisterEvent(countdown, 1000, 10)  
         else  
             player:SendNotification("¡Tiempo terminado!")
             preguntaActual = nil  
