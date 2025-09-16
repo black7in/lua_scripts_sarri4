@@ -356,7 +356,16 @@ local function getPreguntaAleatoria()
     return trivia[index]
 end
 
-local function verificarRespuesta(p, respuesta) return p.respuesta_correcta == respuesta end
+local function verificarRespuesta(pregunta, respuestaJugador)
+    if type(respuestaJugador) ~= "number" then
+        return false
+    end
+    if respuestaJugador < 1 or respuestaJugador > #pregunta.opciones then
+        return false
+    end
+    return respuestaJugador == pregunta.respuesta_correcta
+end
+
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
@@ -387,7 +396,17 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:SendNotification("No tienes suficientes Fichas para jugar. Necesitas 10 Fichas.")
         end
     elseif intid == 2 then
-        player:GossipComplete() 
+        if verificarRespuesta(preguntaActual, tonumber(code)) then
+            player:SendNotification("¡Correcto! Has ganado 2 Fichas.")
+            player:AddItem(ficha, 2)
+            preguntaActual = getPreguntaAleatoria()
+            OnGossipHello(event, player, object)
+        else
+            local correcta = preguntaActual.opciones[preguntaActual.respuesta_correcta]
+            player:SendNotification("Incorrecto. La respuesta correcta era: " .. correcta .. ". ¡Inténtalo de nuevo!")
+            preguntaActual = nil
+            player:GossipComplete() 
+        end
     elseif intid == 3 then
         player:SendUnitSay("¡Hasta luego!", 0)
         player:GossipComplete() 
