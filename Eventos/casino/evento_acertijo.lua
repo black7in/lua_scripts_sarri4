@@ -3,7 +3,7 @@ local ficha = 49224
 
 -- Este npc es un npc para jugar juegos como por ejemplo Trivia
 local text =
-    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 monedas de oro por intento. Puedes ganar 2 monedas de oro por pregunta si respondes correctamente.\n\nPara responder solo debes usar el comando .triva [respuesta] con la opción correcta.\n\nEjemplo: .trivia 1"
+    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 2 monedas de oro por pregunta si respondes correctamente.\n\nPara responder solo debes usar el comando .triva [respuesta] con la opción correcta.\n\nEjemplo: .trivia 1"
 
 local trivia = {
     {pregunta = "¿Quién fue el primer Rey Exánime?", opciones = {"Ner'zhul", "Arthas", "Kel'Thuzad", "Bolvar Fordragon"}, respuesta_correcta = 2},
@@ -354,5 +354,16 @@ end
 
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
-local function OnGossipSelect(event, player, object, sender, intid, code, menu_id) player:GossipComplete() end
+local function OnGossipSelect(event, player, object, sender, intid, code, menu_id) 
+    if intid == 1 then
+        if player:HasItem(ficha, 10) then
+            player:RemoveItem(ficha, 10)
+            player:SendNotification("Que empiece el juego!")
+
+        else
+            player:SendNotification("No tienes suficientes Fichas para jugar. Necesitas 10 Fichas.")
+        end
+    end
+    player:GossipComplete() 
+end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
