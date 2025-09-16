@@ -380,7 +380,7 @@ local function OnGossipHello(event, player, object)
     if cache[player:GetGUIDLow()] == nil then
         cache[player:GetGUIDLow()] = {
             preguntaActual = nil,
-            count = 10
+            count = 10,
             usadas = {}
         }
     end
