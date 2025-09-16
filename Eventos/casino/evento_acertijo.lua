@@ -366,8 +366,8 @@ local function OnGossipHello(event, player, object)
     
         player:SendGossipText(text, npc)
     else
-        local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n".."\n1. " .. preguntaActual.opciones[1] .. "\n2. " .. preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4]
-        player:GossipMenuAddItem(0, "Responder", 0, 2, true, "Escribe el número de la opción correcta (1-4).")
+        local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n".."\n1. " .. preguntaActual.opciones[1] .. "\n2. " .. preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4].. "\n\nTienes 10 segundos para enviar la respuesta (1-4)."
+        player:GossipMenuAddItem(0, "Responder opción (1-4)", 0, 2, true)
         player:SendGossipText(pregunta, npc)
     end
 
