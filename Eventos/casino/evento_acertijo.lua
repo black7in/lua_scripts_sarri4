@@ -367,6 +367,7 @@ local function OnGossipHello(event, player, object)
         player:SendGossipText(text, npc)
     else
         local pregunta = preguntaActual.pregunta .. "\n\nOpciones:\n".."\n1. " .. preguntaActual.opciones[1] .. "\n2. " .. preguntaActual.opciones[2] .. "\n3. " .. preguntaActual.opciones[3] .. "\n4. " .. preguntaActual.opciones[4]
+        player:GossipMenuAddItem(0, "Responder", 0, 2, true, "Escribe el número de la opción correcta (1-4).")
         player:SendGossipText(pregunta, npc)
     end
 
@@ -381,10 +382,12 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:RemoveItem(ficha, 10)
             player:SendNotification("Que empiece el juego!")
             preguntaActual = getPreguntaAleatoria()
+            OnGossipHello(event, player, object)
         else
             player:SendNotification("No tienes suficientes Fichas para jugar. Necesitas 10 Fichas.")
         end
     elseif intid == 2 then
+        player:GossipComplete() 
     elseif intid == 3 then
         player:SendUnitSay("¡Hasta luego!", 0)
         player:GossipComplete() 
