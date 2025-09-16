@@ -447,3 +447,13 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
 end
 
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
+
+local function OnLogin(event, player)
+    cache[player:GetGUIDLow()] = {
+        preguntaActual = nil,
+        count = 10,
+        usadas = {}
+    }
+end
+
+RegisterPlayerEvent(3, OnLogin)
