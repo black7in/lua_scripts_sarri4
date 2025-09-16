@@ -3,7 +3,7 @@ local ficha = 49224
 
 -- Este npc es un npc para jugar juegos como por ejemplo Trivia
 local text =
-    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 2 monedas de oro por pregunta si respondes correctamente.\n\nPara responder solo debes usar el comando .triva [respuesta] con la opción correcta.\n\nEjemplo: .trivia 1"
+    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 2 monedas de oro por pregunta si respondes correctamente.\n\nPara responder solo debes enviar la opcion correcta.\n\nEjemplo: Ultimo Boss de ICC?\nOpcion 1: Lich King\nOpcion 2: Sinda\nOpcion 3: Lord Tuetano\n\nLa respuesta correcta es Opción 1 por tanto debes enviar el número 1"
 
 local trivia = {
     {pregunta = "¿Quién fue el primer Rey Exánime?", opciones = {"Ner'zhul", "Arthas", "Kel'Thuzad", "Bolvar Fordragon"}, respuesta_correcta = 2},
