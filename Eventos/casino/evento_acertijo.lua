@@ -359,7 +359,7 @@ local function verificarRespuesta(pregunta, respuestaJugador)
 end
 
 -- Función para crear un conteo regresivo de 10 segundos  
-function StartCountdown(player)
+function StartCountdown(eventid, delay, repeats, player)
     if count > 0 then
         player:SendRaidNotification("Conteo regresivo: " .. count)
         count = count - 1
