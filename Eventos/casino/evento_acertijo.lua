@@ -364,9 +364,9 @@ function StartCountdown(eventid, delay, repeats, player)
         player:SendRaidNotification("Conteo regresivo: " .. count)
         count = count - 1
     else
-        player:SendNotification("¡Tiempo terminado!")
+        player:SendRaidNotification("¡Tiempo terminado!")
         preguntaActual = nil
-        count = 10
+        --count = 10
     end
 end
 
@@ -412,6 +412,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         if verificarRespuesta(preguntaActual, tonumber(code)) then
             player:SendNotification("|CFF00FF00¡Correcto! Has ganado 2 Fichas.|r")
             player:AddItem(ficha, 2)
+            player:RemoveEvents() -- Detener el conteo regresivo
             preguntaActual = getPreguntaAleatoria()
             OnGossipHello(event, player, object)
         else
