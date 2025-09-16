@@ -344,7 +344,7 @@ local count = 10
 local cache = {}
 
 -- función para obtener una pregunta aleatoria que no se haya repetido
-local function getPreguntaAleatoria()
+local function getPreguntaAleatoria(player)
     -- si ya salieron todas, reinicia
     if #cache[player:GetGUIDLow()].usadas >= #trivia then cache[player:GetGUIDLow()].usadas = {} end
 
@@ -411,7 +411,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         if player:HasItem(ficha, 10) then
             player:RemoveItem(ficha, 10)
             player:SendRaidNotification("Que empiece el juego!")
-            cache[player:GetGUIDLow()].preguntaActual = getPreguntaAleatoria()
+            cache[player:GetGUIDLow()].preguntaActual = getPreguntaAleatoria(player)
             OnGossipHello(event, player, object)
         else
             player:SendNotification("No tienes suficientes Fichas para jugar. Necesitas 10 Fichas.")
@@ -428,7 +428,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:AddItem(ficha, 2)
             player:RemoveEvents() -- Detener el conteo regresivo
             cache[player:GetGUIDLow()].count = 10
-            cache[player:GetGUIDLow()].preguntaActual = getPreguntaAleatoria()
+            cache[player:GetGUIDLow()].preguntaActual = getPreguntaAleatoria(player)
             OnGossipHello(event, player, object)
         else
             local correcta = cache[player:GetGUIDLow()].preguntaActual.opciones[cache[player:GetGUIDLow()].preguntaActual.respuesta_correcta]
