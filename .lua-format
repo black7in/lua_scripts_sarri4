@@ -1,0 +1,2 @@
+column_limit: 150       # longitud máxima de línea
+align_args: true  # evita romper cada argumento en nueva línea
