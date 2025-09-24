@@ -66,7 +66,7 @@ local function MoveVioletaPosInicial(eventid, delay, repeats, worldobject)
 end
 
 local function MoveVioletaPosInicial2(eventid, delay, repeats, worldobject)
-    worldobject:MoveTo( 1, -1640.60, -4372.75, 9.497 )
+    worldobject:MoveTo( 1, -1642.25, -4380.09, 9.497 )
 end
 
 local function MoveJazminPosInicial(eventid, delay, repeats, worldobject)
@@ -105,7 +105,7 @@ local function AIUpdate(event, creature, diff)
         violeta:RemoveFlag( 82, 1 )
         violeta:CastSpell(margarita, 51347, false)
         violeta:RegisterEvent(MoveVioletaPosInicial, 1000, 1)
-        violeta:RegisterEvent(MoveVioletaPosInicial2, 9000, 1)
+        violeta:RegisterEvent(MoveVioletaPosInicial2, 7000, 1)
     elseif estado == "TEXTO3" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[4], 0)
         estado = "TEXTO4"
@@ -115,7 +115,7 @@ local function AIUpdate(event, creature, diff)
         jazmin:RemoveFlag( 82, 1 )
         jazmin:CastSpell(margarita, 51347, false)
         jazmin:RegisterEvent(MoveJazminPosInicial, 1000, 1)
-        jazmin:RegisterEvent(MoveJazminPosInicial2, 9000, 1)
+        jazmin:RegisterEvent(MoveJazminPosInicial2, 5000, 1)
     elseif estado == "TEXTO4" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[5], 0)
         estado = "FINISH"
