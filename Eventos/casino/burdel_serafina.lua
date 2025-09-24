@@ -1,5 +1,7 @@
 local npcSerafina = 60034
 
+local ficha = 49224
+
 local florecitas = {
     60035,
     60036,
@@ -37,8 +39,29 @@ local function CambiraEstado(eventid, delay, repeats, worldobject)
     estado = "ENPOSICION"
 end
 
+local function TerminarEvento(eventid, delay, repeats, worldobject)
+    estado = "INICIAL"
+    worldobject:RemoveEvents()
+    worldobject::MoveHome()
+
+    local creaturesInRange = worldobject:GetCreaturesInRange( 250 )
+    for _, creature in pairs(creaturesInRange) do
+        local entry = creature:GetEntry()
+        if entry == florecitas[1] or entry == florecitas[2] or entry == florecitas[3] then
+            creature:DespawnOrUnsummon(0)
+        end
+    end
+end
+
 local function OnGossipSelectSerafina(event, player, object, sender, intid, code, menu_id)
     if intid == 1 then
+        if not player:HasItem(ficha, 10) then
+            player:SendBroadcastMessage("No tienes suficientes fichas.")
+            player:GossipComplete()
+            return
+        end
+
+        player:RemoveItem(ficha, 10)
         estado = "CAMINANDOPOSICION"
         object:SetWalk( true )
         object:MoveTo( 1, -1643.47, -4381.58, 9.49 )
@@ -46,6 +69,8 @@ local function OnGossipSelectSerafina(event, player, object, sender, intid, code
         object:RegisterEvent(CambiraEstado, 17000, 1)
         object:SendUnitSay(textoSerafina[1], 0)
         object:RemoveFlag( 82, 1 )
+
+        object:RegisterEvent(TerminarEvento, 300000, 1)
     elseif intid == 2 then
         player:GossipComplete()
     end
@@ -77,9 +102,6 @@ local function MoveJazminPosInicial2(eventid, delay, repeats, worldobject)
     worldobject:MoveTo( 1, -1637.65, -4371.86, 9.497 )
 end
 
-
-
-
 local function Bailar(eventid, delay, repeats, worldobject)
     worldobject:EmoteState(10)
 end
@@ -90,7 +112,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[2], 0)
         estado = "TEXTO2"
         timer = 12000
-        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
+        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398, 8 )
         margarita:SetWalk( true )
         margarita:RemoveFlag( 82, 1 )
         margarita:CastSpell(margarita, 51347, false)
@@ -101,7 +123,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[3], 0)
         estado = "TEXTO3"
         timer = 12000
-        local violeta = creature:SpawnCreature( florecitas[2], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
+        local violeta = creature:SpawnCreature( florecitas[2], -1634.68, -4365.43, 9.49, 398, 8 )
         violeta:SetWalk( true )
         violeta:RemoveFlag( 82, 1 )
         violeta:CastSpell(margarita, 51347, false)
@@ -112,7 +134,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[4], 0)
         estado = "TEXTO4"
         timer = 12000
-        local jazmin = creature:SpawnCreature( florecitas[3], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
+        local jazmin = creature:SpawnCreature( florecitas[3], -1634.68, -4365.43, 9.49, 398, 8 )
         jazmin:SetWalk( true )
         jazmin:RemoveFlag( 82, 1 )
         jazmin:CastSpell(margarita, 51347, false)
