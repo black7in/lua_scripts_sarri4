@@ -15,7 +15,7 @@ local textoSerafina = {
 }
 
 local estado = "INICIAL"
-local timer = 5000
+local timer = 0
 
 local gossipTextSerafina = "¡Hola, guapo! ¿Quieres ver a mis florecitas? Solo cuesta 10 fichas la presentación.\n\nSi te gusta una de mis chicas podrás llevartela al privado por 10 fichas extra."
 
@@ -31,6 +31,9 @@ RegisterCreatureGossipEvent(npcSerafina, 1, OnGossipHelloSerafina)
 
 local function MovePos2(eventid, delay, repeats, worldobject)
     worldobject:MoveTo( 1, -1642.25, -4380.09, 9.497 )
+end
+
+local function CambiraEstado(eventid, delay, repeats, worldobject)
     estado = "ENPOSICION"
 end
 
@@ -40,6 +43,7 @@ local function OnGossipSelectSerafina(event, player, object, sender, intid, code
         object:SetWalk( true )
         object:MoveTo( 1, -1643.47, -4381.58, 9.49 )
         object:RegisterEvent(MovePos2, 12000, 1)
+        object:RegisterEvent(CambiraEstado, 17000, 1)
         object:SendUnitSay(textoSerafina[1], 0)
         object:RemoveFlag( 82, 1 )
     elseif intid == 2 then
