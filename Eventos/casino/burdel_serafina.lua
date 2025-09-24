@@ -66,7 +66,7 @@ local function MoveVioletaPosInicial(eventid, delay, repeats, worldobject)
 end
 
 local function MoveVioletaPosInicial2(eventid, delay, repeats, worldobject)
-    worldobject:MoveTo( 1, -1642.25, -4380.09, 9.497 )
+    worldobject:MoveTo( 1, -1639.47, -4374.10, 9.497 )
 end
 
 local function MoveJazminPosInicial(eventid, delay, repeats, worldobject)
