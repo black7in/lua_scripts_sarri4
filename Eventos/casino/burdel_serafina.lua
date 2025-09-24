@@ -112,7 +112,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[2], 0)
         estado = "TEXTO2"
         timer = 12000
-        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398, 8 )
+        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 0.72, 8 )
         margarita:SetWalk( true )
         margarita:RemoveFlag( 82, 1 )
         margarita:CastSpell(margarita, 51347, false)
@@ -123,7 +123,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[3], 0)
         estado = "TEXTO3"
         timer = 12000
-        local violeta = creature:SpawnCreature( florecitas[2], -1634.68, -4365.43, 9.49, 398, 8 )
+        local violeta = creature:SpawnCreature( florecitas[2], -1634.68, -4365.43, 9.49, 0.72, 8 )
         violeta:SetWalk( true )
         violeta:RemoveFlag( 82, 1 )
         violeta:CastSpell(margarita, 51347, false)
@@ -134,7 +134,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[4], 0)
         estado = "TEXTO4"
         timer = 12000
-        local jazmin = creature:SpawnCreature( florecitas[3], -1634.68, -4365.43, 9.49, 398, 8 )
+        local jazmin = creature:SpawnCreature( florecitas[3], -1634.68, -4365.43, 9.49, 0.72, 8 )
         jazmin:SetWalk( true )
         jazmin:RemoveFlag( 82, 1 )
         jazmin:CastSpell(margarita, 51347, false)
