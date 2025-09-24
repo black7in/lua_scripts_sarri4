@@ -53,19 +53,37 @@ end
 
 RegisterCreatureGossipEvent(npcSerafina, 2, OnGossipSelectSerafina)
 
+local function MoveMargaritaPosInicial(eventid, delay, repeats, worldobject)
+    worldobject:MoveTo( 1, -1643.07, -4374.69, 9.497 )
+end
+
+local function MoveMargaritaPosInicial2(eventid, delay, repeats, worldobject)
+    worldobject:MoveTo( 1, -1641.19, -4376.32, 9.497 )
+end
+
+local function MargaritaEmote(eventid, delay, repeats, worldobject)
+    worldobject:HandleEmote(12)
+end
+
+
 local function AIUpdate(event, creature, diff)
     if estado == "ENPOSICION" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[2], 0)
         estado = "TEXTO2"
-        timer = 5000
+        timer = 12000
+        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398 )
+        margarita:RemoveFlag( 82, 1 )
+        margarita:CastSpell(margarita, 51347, false)
+        margarita:RegisterEvent(MoveMargaritaPosInicial, 1000, 1)
+        margarita:RegisterEvent(MoveMargaritaPosInicial2, 9000, 1)
     elseif estado == "TEXTO2" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[3], 0)
         estado = "TEXTO3"
-        timer = 5000
+        timer = 12000
     elseif estado == "TEXTO3" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[4], 0)
         estado = "TEXTO4"
-        timer = 5000
+        timer = 12000
     elseif estado == "TEXTO4" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[5], 0)
         estado = "FINISH"
