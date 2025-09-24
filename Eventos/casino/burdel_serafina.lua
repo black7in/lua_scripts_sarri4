@@ -61,6 +61,25 @@ local function MoveMargaritaPosInicial2(eventid, delay, repeats, worldobject)
     worldobject:MoveTo( 1, -1641.19, -4376.32, 9.497 )
 end
 
+local function MoveVioletaPosInicial(eventid, delay, repeats, worldobject)
+    worldobject:MoveTo( 1, -1640.60, -4372.74, 9.497 )
+end
+
+local function MoveVioletaPosInicial2(eventid, delay, repeats, worldobject)
+    worldobject:MoveTo( 1, -1640.60, -4372.75, 9.497 )
+end
+
+local function MoveJazminPosInicial(eventid, delay, repeats, worldobject)
+    worldobject:MoveTo( 1, -1639.04, -4370.65, 9.497 )
+end
+
+local function MoveJazminPosInicial2(eventid, delay, repeats, worldobject)
+    worldobject:MoveTo( 1, -1637.65, -4371.86, 9.497 )
+end
+
+
+
+
 local function MargaritaEmote(eventid, delay, repeats, worldobject)
     worldobject:HandleEmote(12)
 end
@@ -72,7 +91,7 @@ local function AIUpdate(event, creature, diff)
         estado = "TEXTO2"
         timer = 12000
         local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
-        creature:SetWalk( true )
+        margarita:SetWalk( true )
         margarita:RemoveFlag( 82, 1 )
         margarita:CastSpell(margarita, 51347, false)
         margarita:RegisterEvent(MoveMargaritaPosInicial, 1000, 1)
@@ -81,10 +100,22 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[3], 0)
         estado = "TEXTO3"
         timer = 12000
+        local violeta = creature:SpawnCreature( florecitas[2], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
+        violeta:SetWalk( true )
+        violeta:RemoveFlag( 82, 1 )
+        violeta:CastSpell(margarita, 51347, false)
+        violeta:RegisterEvent(MoveVioletaPosInicial, 1000, 1)
+        violeta:RegisterEvent(MoveVioletaPosInicial2, 9000, 1)
     elseif estado == "TEXTO3" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[4], 0)
         estado = "TEXTO4"
         timer = 12000
+        local jazmin = creature:SpawnCreature( florecitas[3], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
+        jazmin:SetWalk( true )
+        jazmin:RemoveFlag( 82, 1 )
+        jazmin:CastSpell(margarita, 51347, false)
+        jazmin:RegisterEvent(MoveJazminPosInicial, 1000, 1)
+        jazmin:RegisterEvent(MoveJazminPosInicial2, 9000, 1)
     elseif estado == "TEXTO4" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[5], 0)
         estado = "FINISH"
