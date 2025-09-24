@@ -71,7 +71,8 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[2], 0)
         estado = "TEXTO2"
         timer = 12000
-        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398 )
+        local margarita = creature:SpawnCreature( florecitas[1], -1634.68, -4365.43, 9.49, 398, 3, 60000 )
+        creature:SetWalk( true )
         margarita:RemoveFlag( 82, 1 )
         margarita:CastSpell(margarita, 51347, false)
         margarita:RegisterEvent(MoveMargaritaPosInicial, 1000, 1)
