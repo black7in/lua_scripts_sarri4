@@ -16,8 +16,17 @@ local textoSerafina = {
     "Si te gusta alguna, puedes llevartela al privado por 10 fichas extra. Solo tienes que hablar con ella.",
 }
 
+local textosCachondosFlorecitas = {
+    "¡Hola, guapo! ¿Quieres pasar un buen rato conmigo?",
+    "Me encanta que me besen todo el cuerpo.",
+    "¿Te gusta lo que ves? Puedo hacerte sentir cosas increíbles.",
+    "No soy como las demás, soy especial. Ven y descúbrelo.",
+    "Si me das 10 fichas, te llevaré a un lugar más privado donde podremos divertirnos más.",
+}
+
 local estado = "INICIAL"
 local timer = 0
+local florecitaElegida = nil
 
 local gossipTextSerafina = "¡Hola, guapo! ¿Quieres ver a mis florecitas? Solo cuesta 10 fichas la presentación.\n\nSi te gusta una de mis chicas podrás llevartela al privado por 10 fichas extra."
 
@@ -104,6 +113,9 @@ end
 
 local function Bailar(eventid, delay, repeats, worldobject)
     worldobject:EmoteState(10)
+    -- enviar texto cachondo aleatorio
+    local texto = textosCachondosFlorecitas[math.random(1, #textosCachondosFlorecitas)]
+    worldobject:SendUnitSay(texto, 0)
 end
 
 
@@ -147,14 +159,18 @@ local function AIUpdate(event, creature, diff)
         timer = 120000
     elseif estado == "FINISH" and timer <= 0 then
         estado = "INICIAL"
+        timer = 0
         creature:RemoveEvents()
         creature:MoveHome()
+        creature:SetFlag( 82, 1 )
     
         local creaturesInRange = creature:GetCreaturesInRange( 250 )
         for _, cr in pairs(creaturesInRange) do
             local entry = cr:GetEntry()
             if entry == florecitas[1] or entry == florecitas[2] or entry == florecitas[3] then
-                cr:DespawnOrUnsummon(0)
+                if cr:GetEntry() ~= florecitaElegida then
+                    cr:DespawnOrUnsummon(0)
+                end
             end
         end
     end
