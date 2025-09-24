@@ -49,20 +49,27 @@ end
 
 RegisterCreatureGossipEvent(npcSerafina, 2, OnGossipSelectSerafina)
 
-local index = 2  -- empieza desde textoSerafina[2]
-
 local function AIUpdate(event, creature, diff)
-    if timer > 0 then
-        timer = timer - diff
-        return
+    if estado == "ENPOSICION" and timer <= 0 then
+        creature:SendUnitSay(textoSerafina[2], 0)
+        estado = "TEXTO2"
+        timer = 5000
+    elseif estado == "TEXTO2" and timer <= 0 then
+        creature:SendUnitSay(textoSerafina[3], 0)
+        estado = "TEXTO3"
+        timer = 5000
+    elseif estado == "TEXTO3" and timer <= 0 then
+        creature:SendUnitSay(textoSerafina[4], 0)
+        estado = "TEXTO4"
+        timer = 5000
+    elseif estado == "TEXTO4" and timer <= 0 then
+        creature:SendUnitSay(textoSerafina[5], 0)
+        estado = "FINISH"
     end
 
-    if textoSerafina[index] then
-        creature:SendUnitSay(textoSerafina[index], 0)
-        index = index + 1
-        timer = 5000 -- espera entre cada texto
-    else
-        estado = "FINISH"
+    -- resta el diff al timer si es mayor a 0
+    if timer > 0 then
+        timer = timer - diff
     end
 end
 
