@@ -29,6 +29,7 @@ local function OnGossipSelectSerafina(event, player, object, sender, intid, code
         object:SetWalk( true )
         object:MoveTo( 1, -1643.47, -4381.58, 9.49 )
         object:RegisterEvent(MovePos2, 10000, 1)
+        object:RemoveFlag( 82, 1 )
     elseif intid == 2 then
         player:GossipComplete()
     end
