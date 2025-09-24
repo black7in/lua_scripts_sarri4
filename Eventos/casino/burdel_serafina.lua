@@ -21,6 +21,7 @@ RegisterCreatureGossipEvent(npcSerafina, 1, OnGossipHelloSerafina)
 
 local function OnGossipSelectSerafina(event, player, object, sender, intid, code, menu_id)
     if intid == 1 then
+        object:SetWalk( true )
         object:MoveTo( 1, -1654.29, -4377.67, 9.39 )
     elseif intid == 2 then
         player:GossipComplete()
