@@ -70,7 +70,7 @@ local function OnGossipSelectSerafina(event, player, object, sender, intid, code
         object:SendUnitSay(textoSerafina[1], 0)
         object:RemoveFlag( 82, 1 )
 
-        object:RegisterEvent(TerminarEvento, 300000, 1)
+        --object:RegisterEvent(TerminarEvento, 300000, 1)
     elseif intid == 2 then
         player:GossipComplete()
     end
@@ -144,6 +144,19 @@ local function AIUpdate(event, creature, diff)
     elseif estado == "TEXTO4" and timer <= 0 then
         creature:SendUnitSay(textoSerafina[5], 0)
         estado = "FINISH"
+        timer = 120000
+    elseif "FINISH" and timer <= 0 then
+        estado = "INICIAL"
+        creature:RemoveEvents()
+        creature:MoveHome()
+    
+        local creaturesInRange = creature:GetCreaturesInRange( 250 )
+        for _, cr in pairs(creaturesInRange) do
+            local entry = cr:GetEntry()
+            if entry == florecitas[1] or entry == florecitas[2] or entry == florecitas[3] then
+                cr:DespawnOrUnsummon(0)
+            end
+        end
     end
 
     -- resta el diff al timer si es mayor a 0
