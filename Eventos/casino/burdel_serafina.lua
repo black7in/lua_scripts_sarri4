@@ -11,8 +11,8 @@ local gossipTextSerafina = "¡Hola, guapo! ¿Quieres ver a mis florecitas? Solo 
 local function OnGossipHelloSerafina(event, player, object)
     player:GossipMenuAddItem(0, "Quiero ver a tus florecitas!", 0, 1, false, "Ver a las florecitas cuesta 10 fichas. ¿Quieres continuar?")
     player:GossipMenuAddItem(0, "Salir", 0, 3)
-    player:SendGossipText(gossipTextSerafina, npc)
-    player:GossipSendMenu(npc, object)
+    player:SendGossipText(gossipTextSerafina, npcSerafina)
+    player:GossipSendMenu(npcSerafina, object)
 end
 
 RegisterCreatureGossipEvent(npcSerafina, 1, OnGossipHelloSerafina)
