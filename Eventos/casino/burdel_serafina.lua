@@ -39,7 +39,7 @@ local function OnGossipSelectSerafina(event, player, object, sender, intid, code
         estado = "CAMINANDOPOSICION"
         object:SetWalk( true )
         object:MoveTo( 1, -1643.47, -4381.58, 9.49 )
-        object:RegisterEvent(MovePos2, 10000, 1)
+        object:RegisterEvent(MovePos2, 12000, 1)
         object:SendUnitSay(textoSerafina[1], 0)
         object:RemoveFlag( 82, 1 )
     elseif intid == 2 then
