@@ -145,7 +145,7 @@ local function AIUpdate(event, creature, diff)
         creature:SendUnitSay(textoSerafina[5], 0)
         estado = "FINISH"
         timer = 120000
-    elseif "FINISH" and timer <= 0 then
+    elseif estado == "FINISH" and timer <= 0 then
         estado = "INICIAL"
         creature:RemoveEvents()
         creature:MoveHome()
