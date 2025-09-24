@@ -15,7 +15,7 @@ local textoSerafina = {
 }
 
 local estado = "INICIAL"
-local timer = 0
+local timer = 5000
 
 local gossipTextSerafina = "¡Hola, guapo! ¿Quieres ver a mis florecitas? Solo cuesta 10 fichas la presentación.\n\nSi te gusta una de mis chicas podrás llevartela al privado por 10 fichas extra."
 
