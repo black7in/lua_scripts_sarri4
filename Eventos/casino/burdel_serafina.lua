@@ -42,7 +42,7 @@ end
 local function TerminarEvento(eventid, delay, repeats, worldobject)
     estado = "INICIAL"
     worldobject:RemoveEvents()
-    worldobject::MoveHome()
+    worldobject:MoveHome()
 
     local creaturesInRange = worldobject:GetCreaturesInRange( 250 )
     for _, creature in pairs(creaturesInRange) do
