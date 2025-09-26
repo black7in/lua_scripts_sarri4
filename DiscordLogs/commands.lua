@@ -24,4 +24,4 @@ local function OnCommand(event, player, command)
         )
     end
 end
-RegisterPlayerEvent(42, OnCommand)
+-- RegisterPlayerEvent(42, OnCommand)

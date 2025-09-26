@@ -77,21 +77,36 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             player:SetLevelUpType(LEVEL_TYPE_HARDCORE)
             player:SendBroadcastMessage("¡Has aceptado el Reto Hardcore! Tu aventura será más desafiante.")
             --player:AddQuest( 60000 )
+            -- Anunciar al mundo
+            local mensaje = "|cffff0000[RETO HARDCORE]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Hardcore. ¡Que la suerte esté de su lado!"
+            SendWorldMessage(mensaje)
         elseif sender == 2 then
             -- Reto Artesano
             player:SetLevelUpType(LEVEL_TYPE_ARTESANO)
             player:SendBroadcastMessage("¡Has aceptado el Reto Artesano! Tu habilidad en las profesiones será tu mayor aliado.")
             --player:AddQuest( 60002 )
+
+            -- Anunciar al mundo
+            local mensaje = "|cffff0000[RETO ARTESANO]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Artesano. ¡A crear se ha dicho!"
+            SendWorldMessage(mensaje)
         elseif sender == 3 then
             -- Reto Murlocfóbico
             player:SetLevelUpType(LEVEL_TYPE_MURLOCFOBICO)
             player:SendBroadcastMessage("¡Has aceptado el Reto Murlocfóbico! Tu destino está ligado a los Murlocs.")
             --player:AddQuest( 60003 )
+
+            -- anunciar al mundo
+            local mensaje = "|cffff0000[RETO MURLOCFÓBICO]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Murlocfóbico. ¡A cazar Murlocs se ha dicho!"
+            SendWorldMessage(mensaje)
         elseif sender == 4 then
             -- Reto Maestro de Oficios
             player:SetLevelUpType(LEVEL_TYPE_MAESTRO)
             player:SendBroadcastMessage("¡Has aceptado el Reto Maestro de Oficios! Tu poder proviene de tus profesiones.")
             --player:AddQuest( 60004 )
+
+            -- anunciar al mundo
+            local mensaje = "|cffff0000[RETO MAESTRO DE OFICIOS]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Maestro de Oficios. ¡A dominar las profesiones!"
+            SendWorldMessage(mensaje)
         end
 
         object:SendUnitSay("¡Excelente elección! Que la marea esté de tu lado.", 0)
