@@ -22,6 +22,7 @@ RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
 local function OnGossipSelect(event, player, object, sender, intid, code, menu_id)
     player:GossipClearMenu()
+    local playerName = player:GetName()
     if intid == 1 then
         --player:SendBroadcastMessage("¡Has elegido el Reto Hardcore! Prepárate para una experiencia desafiante.")
         local mensaje = "En este desafío, cada combate es una apuesta con tu vida. Si mueres, tu aventura termina para siempre. Solo los más cautelosos, estratégicos y valientes llegarán al final. ¿Tienes lo necesario para sobrevivir?"
