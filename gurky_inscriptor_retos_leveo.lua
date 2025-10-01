@@ -287,6 +287,6 @@ local function OnKillPlayer(event, killer, killed)
 
 end
 
-RegisterPlayerEvent(6, OnLevelChange)
-RegisterPlayerEvent(8, OnLevelChange)
+RegisterPlayerEvent(6, OnKillPlayer)
+RegisterPlayerEvent(8, OnKillPlayer)
 
