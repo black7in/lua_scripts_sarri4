@@ -107,6 +107,31 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             -- anunciar al mundo
             local mensaje = "|cffff0000[RETO MAESTRO DE OFICIOS]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Maestro de Oficios. ¡A dominar las profesiones!"
             SendWorldMessage(mensaje)
+
+            local json = [[
+                {
+                  "embeds": [
+                    {
+                      "title": "📢 Reto Maestro de Oficios",
+                      "description": "El jugador **]] .. playerName .. [[** ha aceptado el Reto Maestro de Oficios. ¡Mucha suerte!",
+                      "color": 16711680
+                    }
+                  ]
+                }
+            ]]
+
+            HttpRequest(
+                "POST",
+                "https://discord.com/api/webhooks/1422991114763505745/1QpTnuBum1Ae3KdUEx0uw2wChSBMSnfUcKDes3K43Pc0O5NNSv7PjVUV9ulwwzk1IbTW",
+                json,
+                "application/json",
+                function(status, body, headers)
+                    -- print("Webhook enviado. Estado: " .. status)
+                    -- if body then
+                        -- print("Respuesta: " .. body)
+                    -- end
+                end
+            )
         end
 
         object:SendUnitSay("¡Excelente elección! Que la marea esté de tu lado.", 0)
