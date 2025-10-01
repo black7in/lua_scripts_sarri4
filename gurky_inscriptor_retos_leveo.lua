@@ -115,6 +115,31 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             -- Anunciar al mundo
             local mensaje = "|cffff0000[RETO ARTESANO]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Artesano. ¡A crear se ha dicho!"
             SendWorldMessage(mensaje)
+
+            local json = [[
+                {
+                  "embeds": [
+                    {
+                      "title": "📢 Reto Artesano",
+                      "description": "El jugador **]] .. playerName .. [[** ha aceptado el Reto Artesano. ¡A crear se ha dicho! 🛠️",
+                      "color": 16711680
+                    }
+                  ]
+                }
+            ]]
+
+            HttpRequest(
+                "POST",
+                "https://discord.com/api/webhooks/1422991114763505745/1QpTnuBum1Ae3KdUEx0uw2wChSBMSnfUcKDes3K43Pc0O5NNSv7PjVUV9ulwwzk1IbTW",
+                json,
+                "application/json",
+                function(status, body, headers)
+                    -- print("Webhook enviado. Estado: " .. status)
+                    -- if body then
+                        -- print("Respuesta: " .. body)
+                    -- end
+                end
+            )
         elseif sender == 3 then
             -- Reto Murlocfóbico
             player:SetLevelUpType(LEVEL_TYPE_MURLOCFOBICO)
@@ -124,6 +149,31 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
             -- anunciar al mundo
             local mensaje = "|cffff0000[RETO MURLOCFÓBICO]|r El jugador |cff00ff00" .. player:GetName() .. "|r ha aceptado el Reto Murlocfóbico. ¡A cazar Murlocs se ha dicho!"
             SendWorldMessage(mensaje)
+
+            local json = [[
+                {
+                  "embeds": [
+                    {
+                      "title": "📢 Reto Murlocfóbico",
+                      "description": "El jugador **]] .. playerName .. [[** ha aceptado el Reto Murlocfóbico. ¡A cazar Murlocs se ha dicho!",
+                      "color": 16711680
+                    }
+                  ]
+                }
+            ]]
+
+            HttpRequest(
+                "POST",
+                "https://discord.com/api/webhooks/1422991114763505745/1QpTnuBum1Ae3KdUEx0uw2wChSBMSnfUcKDes3K43Pc0O5NNSv7PjVUV9ulwwzk1IbTW",
+                json,
+                "application/json",
+                function(status, body, headers)
+                    -- print("Webhook enviado. Estado: " .. status)
+                    -- if body then
+                        -- print("Respuesta: " .. body)
+                    -- end
+                end
+            )
         elseif sender == 4 then
             -- Reto Maestro de Oficios
             player:SetLevelUpType(LEVEL_TYPE_MAESTRO)
