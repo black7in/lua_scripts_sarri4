@@ -249,3 +249,44 @@ local function OnLevelChange(event, player, oldLevel)
 end
 
 RegisterPlayerEvent(13, OnLevelChange)
+
+
+
+local function OnKillPlayer(event, killer, killed)
+    if killed:ToPlayer() then
+        if killed:GetLevelUpType() == LEVEL_TYPE_HARDCORE then
+            local message = "|cffff0000[RETO HARDCORE]|r El jugador |cff00ff00" .. killed:GetName() .. "|r ha muerto en nivel ".. killed:GetLevel() ..". Lamentablemente su aventura termina aquí."
+            SendWorldMessage(message)
+
+            local json = [[
+                {
+                  "embeds": [
+                    {
+                      "title": "📢 Reto Hardcore",
+                      "description": "El jugador **]] .. killed:GetName() .. [[** ha muerto en nivel **]] .. killed:GetLevel() .. [[**.. ¡Lamentablemente su aventura termina aquí.",
+                      "color": 16711680
+                    }
+                  ]
+                }
+            ]]
+
+            HttpRequest(
+                "POST",
+                "https://discord.com/api/webhooks/1422991114763505745/1QpTnuBum1Ae3KdUEx0uw2wChSBMSnfUcKDes3K43Pc0O5NNSv7PjVUV9ulwwzk1IbTW",
+                json,
+                "application/json",
+                function(status, body, headers)
+                    -- print("Webhook enviado. Estado: " .. status)
+                    -- if body then
+                        -- print("Respuesta: " .. body)
+                    -- end
+                end
+            )
+        end
+    end
+
+end
+
+RegisterPlayerEvent(6, OnLevelChange)
+RegisterPlayerEvent(8, OnLevelChange)
+
