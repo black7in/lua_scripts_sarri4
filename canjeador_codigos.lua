@@ -124,7 +124,7 @@ local function OnGossipHello(event, player, object)
     -- Opción para salir
     player:GossipMenuAddItem(0, "No quiero nada", 0, 2)
     player:SendGossipText(text, npc)
-    player:GossipSendMenu(1, object)
+    player:GossipSendMenu(npc, object)
 end
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
