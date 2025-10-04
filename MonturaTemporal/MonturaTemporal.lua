@@ -17,7 +17,7 @@ local function hasFoods(player)
         if player:HasItem(food) then
             local playerLevel = player:GetLevel()
 
-            if food == 42737 and playerLevel > 60 then
+            if food == 42437 and playerLevel > 60 then
                 return food
             elseif food == 36831 and playerLevel > 45 and playerLevel <= 60 then
                 return food
