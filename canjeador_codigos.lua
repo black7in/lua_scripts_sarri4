@@ -86,4 +86,4 @@ RegisterPlayerEvent(42, OnCommand)
 -- =========================
 -- CARGA INICIAL
 -- =========================
-CodesLoadCache()
+LoadCodesCache()
