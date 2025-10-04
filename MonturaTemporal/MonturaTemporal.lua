@@ -1,8 +1,7 @@
 local npc = 90000
 
 local foods = {
-    117, 159, 414, 422, 1205, 1645, 1707, 1708, 3927, 8766, 8932, 13931, 23160,
-    27854, 27860, 28399, 29394, 33443, 33444, 33445, 35947
+    19063, 28036, 29293, 36831, 42437,
 }
 
 local function OnGossipHello(event, player, object)
@@ -21,11 +20,17 @@ local function hasFoods(player)
     for _, food in ipairs(foods) do
         if player:HasItem(food) then
             local item = player:GetItemByEntry(food)
-            local requiredLevel = item:GetRequiredLevel()
             local playerLevel = player:GetLevel()
 
-            -- si hay diferencia de 5 niveles entonces return food
-            if playerLevel - requiredLevel <= 5 then
+            if food == 19063 and playerLevel <= 15 then
+                return food
+            elseif food == 28036 and playerLevel > 15 and playerLevel <= 30 then
+                return food
+            elseif food == 29293 and playerLevel > 30 and playerLevel <= 45 then
+                return food
+            elseif food == 36831 and playerLevel > 45 and playerLevel <= 60 then
+                return food
+            elseif food == 42737 and playerLevel > 60 then
                 return food
             end
         end
@@ -55,7 +60,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
         -- object:AddAura(intid, player)
         player:AddAura(31700, player)
         player:Mount(24869)
-        player:RegisterEvent(PlayerDismount, 60000)
+        player:RegisterEvent(PlayerDismount, 50000)
     end
 
     player:GossipComplete()
