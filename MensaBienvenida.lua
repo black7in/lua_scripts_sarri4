@@ -5,8 +5,8 @@ local function enviarMensaje(eventid, delay, repeats, player)
             "|cffffff00" .. player:GetName() .. "|r, ¡prepárate para tu aventura en Azeroth!\n\n" ..
             "|cffFF6600Recuerda:|r si necesitas ayuda, contacta a un |cffFF0000Game Master|r o visita nuestro sitio web.\n\n" ..
             "|cff00FF00Únete al canal global:|r |cffffff00/join global|r\n" ..
-            "|cff00CCFFTambién puedes entrar a nuestro Discord para más información y comunidad:|r |cffffff00[link de Discord]|r\n\n" ..
-            "|cffFF33CC¡Diviértete, haz amigos y buena suerte en tus batallas!|r\n"
+            "|cff00CCFFTambién puedes entrar a nuestro Discord para más información y comunidad:|r |cffffff00[https://discord.gg/QWtVezuUwm]|r\n\n" ..
+            "|cffFF33CC¡Diviértete, haz amigos y buena suerte en tus aventuras!|r\n"
 
     player:GossipClearMenu()
     player:GossipMenuAddItem(1, "", 0, 1, false, msg)
