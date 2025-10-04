@@ -14,7 +14,7 @@ end
 local function cargarCodigos()
     codigosPorTexto = {}
 
-    local q = WorldDBQuery([[
+    local q = CharDBQuery([[
         SELECT id, codigo,
                itemId_1, amount_1,
                itemId_2, amount_2,
@@ -45,7 +45,7 @@ end
 
 -- Verifica si el jugador ya canjeó este código
 local function jugadorYaCanjeo(codigo_id, jugador_id_low)
-    local q = WorldDBQuery(string.format(
+    local q = CharDBQuery(string.format(
         "SELECT 1 FROM canjes WHERE codigo_id = %u AND jugador_id = %u LIMIT 1",
         codigo_id, jugador_id_low
     ))
@@ -109,7 +109,7 @@ end
 
 -- Refresca de BD un código puntual (por si otro jugador lo canjeó y cambió el stack)
 local function refrescarCodigoDesdeBD(codigoTextoLower)
-    local q = WorldDBQuery(string.format([[
+    local q = CharDBQuery(string.format([[
         SELECT id, codigo,
                itemId_1, amount_1,
                itemId_2, amount_2,
