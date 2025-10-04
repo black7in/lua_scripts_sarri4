@@ -13,43 +13,21 @@ local text = "¡Hola! Soy Grunty, el canjeador de códigos. Si tienes un código
 
 
 -- Caché en memoria
-local codigosCache = {}
-
--- Función para escapar strings simples (por seguridad)
-local function sql_escape(str)
-    return (tostring(str):gsub("'", "''"))
-end
+local CodesCache = {}
 
 -- Función para cargar todos los códigos en cache
-function F.CodesLoadCache()
-    CodesByText = {}
-    CodesById   = {}
+local function LoadCodesCache()
+    CodesCache = {}
 
-    local results = DBQuery([[
-        SELECT
-            id,            -- 0
-            codigo,        -- 1
-            itemId_1,      -- 2
-            amount_1,      -- 3
-            itemId_2,      -- 4
-            amount_2,      -- 5
-            itemId_3,      -- 6
-            amount_3,      -- 7
-            money,         -- 8
-            stack          -- 9
-        FROM codigos;
-    ]])
+    local results = DBQuery("SELECT id, codigo, itemId_1, amount_1, itemId_2, amount_2, itemId_3, amount_3, money, stack FROM codigos;")
 
     if results then
-        local loaded = 0
         repeat
-            local id      = results:GetUInt32(0)
-            local codigo  = results:GetString(1)
-            local codeKey = string.lower(codigo)
+            local id = results:GetUInt32(0)
 
-            local entry = {
+            CodesCache[id] = {
                 id       = id,
-                codigo   = codigo,
+                codigo   = results:GetString(1),
 
                 itemId_1 = results:IsNull(2) and nil or results:GetUInt32(2),
                 amount_1 = results:IsNull(3) and nil or results:GetUInt32(3),
@@ -63,15 +41,11 @@ function F.CodesLoadCache()
                 money    = results:IsNull(8) and 0   or results:GetInt32(8),
                 stack    = results:IsNull(9) and 0   or results:GetUInt32(9)
             }
-
-            CodesByText[codeKey] = entry
-            CodesById[id]        = entry
-            loaded = loaded + 1
         until not results:NextRow()
 
-        print(string.format("[Canjeador] Códigos cargados en caché: %d", loaded))
+        print(string.format("[Canjeador] Códigos cargados en caché: %d", table.getn(CodesCache)))
     else
-        print("[Canjeador] No se encontraron códigos para cargar en caché.")
+        print("[Canjeador] No hay códigos en la base de datos.")
     end
 end
 
@@ -112,4 +86,4 @@ RegisterPlayerEvent(42, OnCommand)
 -- =========================
 -- CARGA INICIAL
 -- =========================
-CargarCodigos()
+CodesLoadCache()
