@@ -1,8 +1,6 @@
 local npc = 90000
 
-local foods = {
-    19063, 28036, 29293, 36831, 42437,
-}
+local foods = {19063, 28036, 29293, 36831, 42437}
 
 local function OnGossipHello(event, player, object)
     player:GossipClearMenu()
@@ -12,35 +10,31 @@ local function OnGossipHello(event, player, object)
 end
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
 
-local function PlayerDismount(eventid, delay, repeats, player) 
-    player:Dismount() 
-end
+local function PlayerDismount(eventid, delay, repeats, player) player:Dismount() end
 
 local function hasFoods(player)
     for _, food in ipairs(foods) do
         if player:HasItem(food) then
-            local item = player:GetItemByEntry(food)
             local playerLevel = player:GetLevel()
 
-            if food == 19063 and playerLevel <= 15 then
-                return food
-            elseif food == 28036 and playerLevel > 15 and playerLevel <= 30 then
-                return food
-            elseif food == 29293 and playerLevel > 30 and playerLevel <= 45 then
+            if food == 42737 and playerLevel > 60 then
                 return food
             elseif food == 36831 and playerLevel > 45 and playerLevel <= 60 then
                 return food
-            elseif food == 42737 and playerLevel > 60 then
+            elseif food == 29293 and playerLevel > 30 and playerLevel <= 45 then
+                return food
+            elseif food == 28036 and playerLevel > 15 and playerLevel <= 30 then
+                return food
+            elseif food == 19063 and playerLevel <= 15 then
                 return food
             end
         end
     end
 
-    return 0 
+    return 0
 end
 
-local function OnGossipSelect(event, player, object, sender, intid, code,
-                              menu_id)
+local function OnGossipSelect(event, player, object, sender, intid, code, menu_id)
     if intid == 2 then
         player:GossipComplete()
     else
@@ -49,7 +43,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
             object:SendUnitSay("¡No seas tacaño! y comprame comida de tu nivel o superior", 0)
             player:GossipComplete()
 
-            --print(object:GetGUIDLow())
+            -- print(object:GetGUIDLow())
             return
         end
 
@@ -67,7 +61,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code,
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
 
-local function CheckMount(event, player) 
+local function CheckMount(event, player)
     if player:HasAura(31700) then
         player:RemoveAura(31700)
         player:Dismount()
