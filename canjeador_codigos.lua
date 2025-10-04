@@ -21,37 +21,58 @@ local function sql_escape(str)
 end
 
 -- Función para cargar todos los códigos en cache
-local function CargarCodigos()
-    codigosCache = {}
+function F.CodesLoadCache()
+    CodesByText = {}
+    CodesById   = {}
 
-    local query = CharDBQuery([[
-        SELECT id, codigo,
-               itemId_1, amount_1,
-               itemId_2, amount_2,
-               itemId_3, amount_3,
-               money, stack
-        FROM codigos
+    local results = DBQuery([[
+        SELECT
+            id,            -- 0
+            codigo,        -- 1
+            itemId_1,      -- 2
+            amount_1,      -- 3
+            itemId_2,      -- 4
+            amount_2,      -- 5
+            itemId_3,      -- 6
+            amount_3,      -- 7
+            money,         -- 8
+            stack          -- 9
+        FROM codigos;
     ]])
 
-    if query then
+    if results then
+        local loaded = 0
         repeat
-            local row = {
-                id       = query:GetUInt32(0),
-                codigo   = query:GetString(1),
-                itemId_1 = query:IsNull(2) and nil or query:GetUInt32(2),
-                amount_1 = query:IsNull(3) and nil or query:GetUInt32(3),
-                itemId_2 = query:IsNull(4) and nil or query:GetUInt32(4),
-                amount_2 = query:IsNull(5) and nil or query:GetUInt32(5),
-                itemId_3 = query:IsNull(6) and nil or query:GetUInt32(6),
-                amount_3 = query:IsNull(7) and nil or query:GetUInt32(7),
-                money    = query:IsNull(8) and 0 or query:GetInt32(8),
-                stack    = query:GetUInt32(9)
-            }
-            codigosCache[string.lower(row.codigo)] = row
-        until not query:NextRow()
-    end
+            local id      = results:GetUInt32(0)
+            local codigo  = results:GetString(1)
+            local codeKey = string.lower(codigo)
 
-    print("[Canjeador] Códigos cargados en caché: " .. tostring(#codigosCache))
+            local entry = {
+                id       = id,
+                codigo   = codigo,
+
+                itemId_1 = results:IsNull(2) and nil or results:GetUInt32(2),
+                amount_1 = results:IsNull(3) and nil or results:GetUInt32(3),
+
+                itemId_2 = results:IsNull(4) and nil or results:GetUInt32(4),
+                amount_2 = results:IsNull(5) and nil or results:GetUInt32(5),
+
+                itemId_3 = results:IsNull(6) and nil or results:GetUInt32(6),
+                amount_3 = results:IsNull(7) and nil or results:GetUInt32(7),
+
+                money    = results:IsNull(8) and 0   or results:GetInt32(8),
+                stack    = results:IsNull(9) and 0   or results:GetUInt32(9)
+            }
+
+            CodesByText[codeKey] = entry
+            CodesById[id]        = entry
+            loaded = loaded + 1
+        until not results:NextRow()
+
+        print(string.format("[Canjeador] Códigos cargados en caché: %d", loaded))
+    else
+        print("[Canjeador] No se encontraron códigos para cargar en caché.")
+    end
 end
 
 -- =========================
