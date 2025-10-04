@@ -117,6 +117,16 @@ end
 -- =========================
 -- GOSSIP
 -- =========================
+local function OnGossipHello(event, player, object)
+    player:GossipClearMenu()
+    -- Opción para canjear
+    player:GossipMenuAddItem(0, "Canjear código", 0, 1, true, "Ingresa el código que quieres canjear")
+    -- Opción para salir
+    player:GossipMenuAddItem(0, "No quiero nada", 0, 2)
+    player:GossipSendMenu(1, object)
+end
+RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
+
 local function trim(s)
     if not s then return "" end
     return (tostring(s):gsub("^%s*(.-)%s*$", "%1"))
