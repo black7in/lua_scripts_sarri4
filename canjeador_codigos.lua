@@ -19,7 +19,7 @@ local CodesCache = {}
 local function LoadCodesCache()
     CodesCache = {}
 
-    local results = DBQuery("SELECT id, codigo, itemId_1, amount_1, itemId_2, amount_2, itemId_3, amount_3, money, stack FROM codigos;")
+    local results = CharDBQuery("SELECT id, codigo, itemId_1, amount_1, itemId_2, amount_2, itemId_3, amount_3, money, stack FROM codigos;")
 
     if results then
         repeat
