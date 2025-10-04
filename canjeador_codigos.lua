@@ -50,13 +50,13 @@ end
 
 -- Inserta registro de canje
 local function registrarCanje(codigo_id, jugador_id_low)
-    WorldDBExecute(string.format("INSERT INTO canjes (codigo_id, jugador_id) VALUES (%u, %u)", codigo_id, jugador_id_low))
+    CharDBExecute(string.format("INSERT INTO canjes (codigo_id, jugador_id) VALUES (%u, %u)", codigo_id, jugador_id_low))
 end
 
 -- Decrementa el stack (si sigue disponible). Devuelve true si lo logró.
 local function decrementarStack(codigo_id)
     -- Asegura que no baje de 0
-    local res = WorldDBExecute(string.format("UPDATE codigos SET stack = stack - 1 WHERE id = %u AND stack > 0", codigo_id))
+    local res = CharDBExecute(string.format("UPDATE codigos SET stack = stack - 1 WHERE id = %u AND stack > 0", codigo_id))
     return res == true
 end
 
@@ -141,8 +141,6 @@ end
 -- =========================
 local function OnGossipHello(event, player, object)
     -- Cargamos/recargamos por si hubo cambios
-    cargarCodigos()
-
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Canjear código", 0, 1, true, "Ingresa el código que quieres canjear")
     player:GossipMenuAddItem(0, "No quiero nada", 0, 2)
@@ -200,7 +198,7 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         local ok, err = darRecompensas(player, entry)
         if not ok then
             -- Si las recompensas fallan, reponemos el stack para no perder un uso
-            WorldDBExecute(string.format("UPDATE codigos SET stack = stack + 1 WHERE id = %u", entry.id))
+            CharExecute(string.format("UPDATE codigos SET stack = stack + 1 WHERE id = %u", entry.id))
             player:SendNotification(err or "Error al entregar las recompensas.")
             player:GossipComplete()
             return
@@ -219,3 +217,6 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
     player:GossipComplete()
 end
 RegisterCreatureGossipEvent(npc, 2, OnGossipSelect)
+
+
+cargarCodigos()
