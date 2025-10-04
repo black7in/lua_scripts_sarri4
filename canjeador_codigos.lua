@@ -16,10 +16,19 @@ local text = "¡Hola! Soy Grunty, el canjeador de códigos. Si tienes un código
 local CodesCache = {}
 
 -- Función para cargar todos los códigos en cache
-local function LoadCodesCache()
-    CodesCache = {}
+-- =========================
+-- CACHE GLOBAL
+-- =========================
+local DBQuery = CharDBQuery  -- cambia si usas WorldDB o AuthDB
 
-    local results = CharDBQuery("SELECT id, codigo, itemId_1, amount_1, itemId_2, amount_2, itemId_3, amount_3, money, stack FROM codigos;")
+-- =========================
+-- FUNCIÓN PARA CARGAR CÓDIGOS
+-- =========================
+function LoadCodesCache()
+    CodesCache = {}
+    local loaded = 0
+
+    local results = DBQuery("SELECT id, codigo, itemId_1, amount_1, itemId_2, amount_2, itemId_3, amount_3, money, stack FROM codigos;")
 
     if results then
         repeat
@@ -41,13 +50,16 @@ local function LoadCodesCache()
                 money    = results:IsNull(8) and 0   or results:GetInt32(8),
                 stack    = results:IsNull(9) and 0   or results:GetUInt32(9)
             }
+
+            loaded = loaded + 1
         until not results:NextRow()
 
-        print(string.format("[Canjeador] Códigos cargados en caché: %d", table.getn(CodesCache)))
+        print(string.format("[Canjeador] Códigos cargados en caché: %d", loaded))
     else
         print("[Canjeador] No hay códigos en la base de datos.")
     end
 end
+
 
 -- =========================
 -- GOSSIP
