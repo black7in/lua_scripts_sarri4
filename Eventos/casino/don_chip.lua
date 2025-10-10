@@ -6,7 +6,7 @@ local recompensa  = 29837  -- item de recompensa por victoria
 local REWARD_PER_WIN = 1   -- cuántas recompensas dar por cada victoria
 
 -- Texto inicial (puedes personalizarlo)
-local texto = "Craps (Pass Line)\nReglas:\n- Come-out: 7/11 ganas | 2/3/12 pierdes | 4,5,6,8,9,10 = Point\n- Con Point: repite el Point = ganas | sale 7 = pierdes\n- Ganas → recibes recompensa; Pierdes → se cobran tus fichas arriesgadas."
+local texto = "Craps (Pass Line)\nReglas:\nCome-out: Saca 7-11 para ganar\n Saca 2-3-12 y pierdes.\nPoint: Saca 4,5,6,8,9,10\nCon Point: repite el Point y ganas pero si sale 7 = pierdes\nGanas recibes Fichas Doradas la cantidad que apostaste\nPierdes se cobran tus fichas arriesgadas."
 
 -- Estado por jugador
 local state = {}  -- [guidLow] = { bet = number, phase = "comeout"|"point", point = number, active = bool }
