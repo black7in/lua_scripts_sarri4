@@ -4,11 +4,11 @@ local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de N
 
 texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 am  hasta el lunes a las 6:00 am. Asegúrate de completar los objetivos y recoger tu recompensa dentro de estas fechas."
 
-local progreso = "|cff00ff00Tu progreso actual es:|r\n" ..
+local progreso = "Tu progreso actual es:\n" ..
 "- |cffffff00Horas jugadas:|r |cff00ffff{}|r\n" ..
 "- |cffffff00Nivel alcanzado:|r |cff00ffff{}|r\n" ..
 "- |cffffff00Objetos recolectados:|r |cff00ffff{}|r\n\n" ..
-"|cffffa500¡Sigue así, estás en el camino correcto!|r"
+"¡Sigue así, estás en el camino correcto!"
 
 
 local function OnGossipHello(event, player, creature)
@@ -78,8 +78,8 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         end
 
         CharDBExecute("INSERT INTO characters_evento_semanal (guid, tiempo_total, premio_reclamado) VALUES (" .. player:GetGUIDLow() .. ", " .. player:GetTotalPlayedTime() .. ", 1) ON DUPLICATE KEY UPDATE premio_reclamado = 1;")
-        player:AddItem(39896, 1) -- Huevo de Lurky
-        player:AddItem(40752, 50) -- Emblemas de Triunfo
+        player:AddItem(30360, 1) -- Huevo de Lurky
+        player:AddItem(47241, 50) -- Emblemas de Triunfo
         player:SendNotification("|cff00ff00¡Felicidades! Has reclamado tu recompensa.|r")
         player:GossipComplete()
     elseif intid == 3 then
