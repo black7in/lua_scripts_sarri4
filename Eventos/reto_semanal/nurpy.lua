@@ -6,8 +6,6 @@ texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 a
 
 local progreso = "Tu progreso actual es:\n- Horas jugadas: {}\n- Nivel alcanzado: {}\n- Objetos recolectados: {}\n\n¡Sigue así, estás en el camino correcto!"
 
-local cache = {}
-
 local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Ver mi progreso.", 0, 1)
@@ -51,6 +49,18 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         player:SendGossipText(formatString(progreso, horas_jugadas, nivel, objetos_recolectados), npc*10)
         player:GossipSendMenu(npc*10, creature)
     elseif intid == 2 then
+        if obtenerTiempoJugado(player) < 20 * 3600 then
+            player:SendNotification("No has jugado las 20 horas necesarias.")
+            player:GossipComplete()
+            return
+        end
+
+        if player:GetLevel() < 50 then
+            player:SendNotification("No has alcanzado el nivel 50 necesario.")
+            player:GossipComplete()
+            return
+        end
+        
 
         player:AddItem(39896, 1) -- Huevo de Lurky
         player:AddItem(40752, 50) -- Emblemas de Triunfo
