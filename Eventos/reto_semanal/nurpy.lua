@@ -25,7 +25,7 @@ function obtenerTiempoJugado(player)
     local result = CharDBQuery("SELECT tiempo_total FROM characters_evento_semanal WHERE guid = " .. player:GetGUIDLow() .. ";")
     if result then
         local row = result:GetRow(0)
-        return row["tiempo_total"] - player:GetTotalPlayedTime()
+        return player:GetTotalPlayedTime() - row["tiempo_total"]
     else
         return player:GetTotalPlayedTime()
     end
