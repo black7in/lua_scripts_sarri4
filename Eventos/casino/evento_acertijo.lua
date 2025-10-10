@@ -3,7 +3,7 @@ local ficha = 49224
 
 -- Este npc es un npc para jugar juegos como por ejemplo Trivia
 local text =
-    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 5 fichas por pregunta si respondes correctamente.\n\nPara responder solo debes enviar la opcion correcta.\n\nEjemplo: Ultimo Boss de ICC?\nOpcion 1: Lich King\nOpcion 2: Sindra\nOpcion 3: Lord Tuetano\n\nLa respuesta correcta es Opción 1 por tanto debes enviar el número 1"
+    "¡Hola! Soy Riddler el Acertijo. Esto es un juego de Trivia, tienes que responder a mis preguntas para ganar premios. ¿Quieres intentarlo?\n\nEl costo es de 10 Fichas por intento. Puedes ganar 1 Ficha Dorada por pregunta si respondes correctamente.\n\nPara responder solo debes enviar la opcion correcta.\n\nEjemplo: Ultimo Boss de ICC?\nOpcion 1: Lich King\nOpcion 2: Sindra\nOpcion 3: Lord Tuetano\n\nLa respuesta correcta es Opción 1 por tanto debes enviar el número 1"
 
 local trivia = {
     {pregunta = "¿Quién fue el primer Rey Exánime?", opciones = {"Ner'zhul", "Arthas", "Kel'Thuzad", "Bolvar Fordragon"}, respuesta_correcta = 2},
@@ -425,8 +425,8 @@ local function OnGossipSelect(event, player, object, sender, intid, code, menu_i
         end
 
         if verificarRespuesta(cache[player:GetGUIDLow()].preguntaActual, tonumber(code)) then
-            player:SendNotification("|CFF00FF00¡Correcto! Has ganado 5 Fichas.|r")
-            player:AddItem(ficha, 5)
+            player:SendNotification("|CFF00FF00¡Correcto! Has ganado 1 Ficha Dorada.|r")
+            player:AddItem(29837, 1)
             player:RemoveEvents() -- Detener el conteo regresivo
             cache[player:GetGUIDLow()].count = 10
             cache[player:GetGUIDLow()].preguntaActual = getPreguntaAleatoria(player)

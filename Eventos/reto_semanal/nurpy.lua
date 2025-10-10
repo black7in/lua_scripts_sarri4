@@ -1,13 +1,13 @@
 local npc = 50020
 
-local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara ganar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 10 objetos perdidos de Nurpy.\n\nSi completas estos objetivos, recibirás una recompensa especial:\n1. |TINTERFACE/ICONS/inv_egg_03:15:15:0:0|t Huevo de Lurky\n2. |TINTERFACE/ICONS/spell_holy_summonchampion:15:15:0:0|t Emblemas de Triunfo x50.\n\n¿Estás listo para el desafío?"
+local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara ganar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 20 Fichas Doradas.\n\nSi completas estos objetivos, recibirás una recompensa especial:\n1. |TINTERFACE/ICONS/inv_egg_03:15:15:0:0|t Huevo de Lurky\n2. |TINTERFACE/ICONS/spell_holy_summonchampion:15:15:0:0|t Emblemas de Triunfo x50.\n\n¿Estás listo para el desafío?"
 
 texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 am  hasta el lunes a las 6:00 am. Asegúrate de completar los objetivos y recoger tu recompensa dentro de estas fechas."
 
 local progreso = "Tu progreso actual es:\n" ..
 "- |cffffff00Horas jugadas:|r |cff00ffff{}|r\n" ..
 "- |cffffff00Nivel alcanzado:|r |cff00ffff{}|r\n" ..
-"- |cffffff00Objetos recolectados:|r |cff00ffff{}|r\n\n" ..
+"- |cffffff00Fichas Doradas:|r |cff00ffff{}|r\n\n" ..
 "¡Sigue así, estás en el camino correcto!"
 
 
@@ -49,7 +49,7 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
 
         local horas_jugadas = formatearTiempo(obtenerTiempoJugado(player))
         local nivel = player:GetLevel()
-        local objetos_recolectados = 0
+        local objetos_recolectados = player:GetItemCount(29837)
 
         player:SendGossipText(formatString(progreso, horas_jugadas, nivel, objetos_recolectados), npc*10)
         player:GossipSendMenu(npc*10, creature)
@@ -62,6 +62,13 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
 
         if player:GetLevel() < 50 then
             player:SendNotification("No has alcanzado el nivel 50 necesario.")
+            player:GossipComplete()
+            return
+        end
+
+        -- 29837
+        if player:GetItemCount(29837) < 20 then
+            player:SendNotification("No tienes las 10 Fichas Doradas necesarias.")
             player:GossipComplete()
             return
         end
