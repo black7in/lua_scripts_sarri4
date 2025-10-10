@@ -1,22 +1,13 @@
--- Mayor o Menor (simple) para Eluna Engine
--- Flujo:
---  * El jugador ingresa cuántas fichas arriesga (valida inventario).
---  * Se genera un número inicial 2..8.
---  * Elige "Mayor" o "Menor". Se tira 1..9.
---     - Si acierta -> gana recompensa y sigue jugando.
---     - Si sale igual -> pierde.
---     - Si falla -> pierde.
---  * Al perder, se cobran las fichas apostadas y termina la sesión.
+-- Mayor o Menor (premio = apuesta) para Eluna Engine
 
 local npc         = 60040
 local fichas      = 49224    -- Item de fichas a arriesgar
-local recompensa  = 29837    -- Item de recompensa por victoria
-local REWARD_PER_WIN = 1     -- Cantidad de recompensas por cada acierto
+local recompensa  = 29837    -- Item de recompensa por victoria (misma cantidad que apuesta)
 
-local texto = "Mayor o Menor (simple)\n" ..
+local texto = "Mayor o Menor (premio = apuesta)\n" ..
               "- Se genera un número inicial (2–8)\n" ..
               "- Elige Mayor o Menor contra un nuevo número (1–9)\n" ..
-              "- Acierto: ganas recompensa y sigues\n" ..
+              "- Acierto: ganas recompensa igual a tu apuesta y sigues\n" ..
               "- Igual o fallo: pierdes y se cobran tus fichas"
 
 -- Estado por jugador: [guidLow] = { bet, current, active }
@@ -47,13 +38,11 @@ local function clearState(player)
 end
 
 local function randomStart()
-    -- 2..8 para que ambas opciones (Mayor/Menor) tengan sentido
-    return math.random(2, 8)
+    return math.random(2, 8)  -- 2..8 para que ambas elecciones tengan sentido
 end
 
 local function randomNext()
-    -- Nuevo número 1..9
-    return math.random(1, 9)
+    return math.random(1, 9)  -- nuevo número 1..9
 end
 
 local function startSession(player, bet)
@@ -74,8 +63,8 @@ local function ShowChoice(player, creature)
     local num = st and st.current or "?"
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Número actual: |cffffff00"..num.."|r", 0, 99)
-    player:GossipMenuAddItem(0, "Elegir: Mayor", 0, 20) -- adivina mayor
-    player:GossipMenuAddItem(0, "Elegir: Menor", 0, 21) -- adivina menor
+    player:GossipMenuAddItem(0, "Elegir: Mayor", 0, 20)
+    player:GossipMenuAddItem(0, "Elegir: Menor", 0, 21)
     player:GossipMenuAddItem(0, "Terminar ahora", 0, 5)
     player:GossipSendMenu(npc*10, creature)
 end
@@ -150,16 +139,12 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
             return
         end
 
-        local correct = false
-        if intid == 20 then -- Mayor
-            correct = (nxt > prev)
-        else                -- Menor
-            correct = (nxt < prev)
-        end
+        local correct = (intid == 20) and (nxt > prev) or (nxt < prev)
 
         if correct then
-            giveReward(player, REWARD_PER_WIN)
-            sendInfo(player, ("¡Acierto! |cff00ff00GANAS|r. Recompensa +%d. Puedes seguir..."):format(REWARD_PER_WIN))
+            -- PREMIO = APUESTA
+            giveReward(player, st.bet)
+            sendInfo(player, ("¡Acierto! |cff00ff00GANAS|r. Recompensa +|cffffff00%d|r (igual a tu apuesta). Puedes seguir..."):format(st.bet))
             st.current = nxt
             ShowChoice(player, creature)
             return
