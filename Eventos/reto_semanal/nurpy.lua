@@ -49,19 +49,26 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         player:SendGossipText(formatString(progreso, horas_jugadas, nivel, objetos_recolectados), npc*10)
         player:GossipSendMenu(npc*10, creature)
     elseif intid == 2 then
-        if obtenerTiempoJugado(player) < 20 * 3600 then
-            player:SendNotification("No has jugado las 20 horas necesarias.")
-            player:GossipComplete()
-            return
-        end
+
 
         if player:GetLevel() < 50 then
             player:SendNotification("No has alcanzado el nivel 50 necesario.")
             player:GossipComplete()
             return
         end
-        
 
+        -- verficar si ya reclamó la recompensa
+        local result = CharDBQuery("SELECT premio_reclamado FROM characters_evento_semanal WHERE guid = " .. player:GetGUIDLow() .. ";")
+        if result then
+            local row = result:GetRow(0)
+            if row["premio_reclamado"] == 1 then
+                player:SendNotification("Ya has reclamado tu recompensa esta semana.")
+                player:GossipComplete()
+                return
+            end
+        end
+
+        CharDBExecute("INSERT INTO characters_evento_semanal (guid, tiempo_total, premio_reclamado) VALUES (" .. player:GetGUIDLow() .. ", " .. player:GetTotalPlayedTime() .. ", 1) ON DUPLICATE KEY UPDATE premio_reclamado = 1;")
         player:AddItem(39896, 1) -- Huevo de Lurky
         player:AddItem(40752, 50) -- Emblemas de Triunfo
     elseif intid == 3 then
