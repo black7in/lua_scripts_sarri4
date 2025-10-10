@@ -1,6 +1,6 @@
 local npc = 50020
 
-local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara ganar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 20 Fichas Doradas.\n\nSi completas estos objetivos, recibirás una recompensa especial:\n1. |TINTERFACE/ICONS/inv_egg_03:15:15:0:0|t Huevo de Lurky\n2. |TINTERFACE/ICONS/spell_holy_summonchampion:15:15:0:0|t Emblemas de Triunfo x50.\n\n¿Estás listo para el desafío?"
+local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara ganar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 20 Doblón Marinos.\n\nSi completas estos objetivos, recibirás una recompensa especial:\n1. |TINTERFACE/ICONS/inv_egg_03:15:15:0:0|t Huevo de Lurky\n2. |TINTERFACE/ICONS/spell_holy_summonchampion:15:15:0:0|t Emblemas de Triunfo x50.\n\n¿Estás listo para el desafío?"
 
 texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 am  hasta el lunes a las 6:00 am. Asegúrate de completar los objetivos y recoger tu recompensa dentro de estas fechas."
 
@@ -67,8 +67,8 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         end
 
         -- 29837
-        if player:GetItemCount(29837) < 20 then
-            player:SendNotification("No tienes las 10 Fichas Doradas necesarias.")
+        if player:GetItemCount(7168) < 20 then
+            player:SendNotification("No tienes los 20 Doblones Marinos necesarios.")
             player:GossipComplete()
             return
         end
@@ -87,6 +87,7 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         CharDBExecute("INSERT INTO characters_evento_semanal (guid, tiempo_total, premio_reclamado) VALUES (" .. player:GetGUIDLow() .. ", " .. player:GetTotalPlayedTime() .. ", 1) ON DUPLICATE KEY UPDATE premio_reclamado = 1;")
         player:AddItem(30360, 1) -- Huevo de Lurky
         player:AddItem(47241, 50) -- Emblemas de Triunfo
+        player:RemoveItem(7168, 20) -- quitar doblones marinos
         player:SendNotification("|cff00ff00¡Felicidades! Has reclamado tu recompensa.|r")
         player:GossipComplete()
     elseif intid == 3 then
