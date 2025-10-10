@@ -10,6 +10,11 @@ local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Ver mi progreso.", 0, 1)
     player:GossipMenuAddItem(0, "Salir.", 0, 5)
+
+    if(player:IsGM()) then
+        player:GossipMenuAddItem(0, "Iniciar Evento - Solo Admins", 0, 4, true, "Ingresa la clave.")
+    end
+
     player:SendGossipText(texto, npc*10)
     player:GossipSendMenu(npc*10, creature)
 end
@@ -27,6 +32,17 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         player:GossipSendMenu(npc*10, creature)
     elseif intid == 2 then
 
+
+    elseif intid == 3 then
+        OnGossipHello(event, player, creature)
+    elseif intid == 4 then
+        if code == "warsitobb" then
+            player:SendBroadcastMessage("Evento semanal iniciado por un administrador.")
+        else
+            player:SendBroadcastMessage("Clave incorrecta.")
+        end
+    else
+        player:GossipComplete()
     end
 end
 
