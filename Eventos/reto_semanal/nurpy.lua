@@ -28,7 +28,6 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
     elseif intid == 2 then
 
     end
-    player:GossipComplete()
 end
 
 RegisterCreatureGossipEvent(npc, 1, OnGossipHello)
