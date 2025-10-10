@@ -1,22 +1,16 @@
--- Mayor / Menor / Igual para Eluna
--- Reglas:
--- - Se muestra número inicial 2..8
--- - El jugador elige MAYOR, MENOR o IGUAL contra un nuevo número 1..9
--- - Pago:
---     * IGUAL acertado -> paga = apuesta completa
---     * MAYOR/MENOR acertado -> paga = mitad de la apuesta redondeada hacia arriba
--- - Si falla, se cobran las fichas apostadas y termina la sesión
+-- Mayor / Menor / Igual (cobra al aceptar) – Eluna
 
 local npc         = 60040
 local fichas      = 49224   -- item de fichas
 local recompensa  = 29837   -- item de recompensa
 
-local texto = "Mayor / Menor / Igual\n" ..
+local texto = "Mayor / Menor / Igual (cobra al aceptar)\n" ..
               "- Número inicial (2–8)\n" ..
               "- Elige MAYOR, MENOR o IGUAL contra un nuevo número (1–9)\n" ..
+              "- Al aceptar se cobran tus fichas apostadas.\n" ..
               "- IGUAL acierta: premio = apuesta\n" ..
               "- MAYOR/MENOR acierta: premio = mitad de la apuesta (redondeo arriba)\n" ..
-              "- Fallo: pierdes y se cobran tus fichas"
+              "- Si fallas, termina la sesión."
 
 -- Estado por jugador
 -- [guidLow] = { bet = number, current = number, active = bool }
@@ -61,7 +55,7 @@ end
 -- --------- Menús ----------
 local function ShowMain(player, creature)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Quiero jugar.", 0, 1, true, "¿Cuántas fichas quieres arriesgar?\n(ingresa un número entero ≥ 1)")
+    player:GossipMenuAddItem(0, "Quiero jugar.", 0, 1, true, "¿Cuántas fichas quieres arriesgar?\n(ingresa un número entero ≥ 1)\n*Se cobran al aceptar*")
     player:GossipMenuAddItem(0, "Salir.", 0, 5)
     player:SendGossipText(texto, npc*10)
     player:GossipSendMenu(npc*10, creature)
@@ -70,8 +64,9 @@ end
 local function ShowChoice(player, creature)
     local st = state[guid(player)]
     local num = st and st.current or "?"
+    local bet = st and st.bet or "?"
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Número actual: |cffffff00"..num.."|r  (Apuesta: |cffffff00"..(st and st.bet or "?").."|r)", 0, 99)
+    player:GossipMenuAddItem(0, "Número actual: |cffffff00"..num.."|r  (Apuesta pagada: |cffffff00"..bet.."|r)", 0, 99)
     player:GossipMenuAddItem(0, "Elegir: MAYOR", 0, 20)
     player:GossipMenuAddItem(0, "Elegir: MENOR", 0, 21)
     player:GossipMenuAddItem(0, "Elegir: IGUAL", 0, 22)
@@ -82,7 +77,7 @@ end
 local function EndSession(player, creature)
     clearState(player)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Jugar de nuevo.", 0, 1, true, "¿Cuántas fichas quieres arriesgar?")
+    player:GossipMenuAddItem(0, "Jugar de nuevo.", 0, 1, true, "¿Cuántas fichas quieres arriesgar? (se cobran al aceptar)")
     player:GossipMenuAddItem(0, "Salir.", 0, 5)
     player:GossipSendMenu(npc*10, creature)
 end
@@ -99,7 +94,7 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         return
     end
 
-    -- Iniciar: pedir apuesta
+    -- Iniciar: pedir apuesta (cobra aquí)
     if intid == 1 then
         local bet = tonumber(tostring(code or ""))
         if not bet or bet < 1 then
@@ -113,9 +108,12 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
             return
         end
 
+        -- COBRO AL ACEPTAR
+        takeChips(player, bet)
+
         startSession(player, bet)
         local st = state[guid(player)]
-        sendInfo(player, ("Has arriesgado |cffffff00%d|r fichas. Número inicial: |cffffff00%d|r"):format(bet, st.current))
+        sendInfo(player, ("Apuesta aceptada. Se cobraron |cffffff00%d|r fichas. Número inicial: |cffffff00%d|r"):format(bet, st.current))
         ShowChoice(player, creature)
         return
     end
@@ -152,25 +150,25 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         elseif decision == "MAYOR" then
             if nxt > prev then
                 won = true
-                payout = halfRoundUp(st.bet)        -- MAYOR: paga mitad redondeando arriba
+                payout = halfRoundUp(st.bet)        -- MAYOR: mitad redondeada arriba
             end
         elseif decision == "MENOR" then
             if nxt < prev then
                 won = true
-                payout = halfRoundUp(st.bet)        -- MENOR: paga mitad redondeando arriba
+                payout = halfRoundUp(st.bet)        -- MENOR: mitad redondeada arriba
             end
         end
 
         if won then
             giveReward(player, payout)
             sendInfo(player, ("|cff00ff00¡GANAS!|r Premio: |cffffff00%d|r (decisión: %s)"):format(payout, decision))
-            -- La sesión continúa hasta que pierda: el nuevo "current" pasa a ser el que salió
+            -- Continúa la sesión: actualizamos el número actual
             st.current = nxt
             ShowChoice(player, creature)
             return
         else
-            takeChips(player, st.bet)
-            sendInfo(player, ("|cffff0000PIERDES|r. Se cobraron |cffffff00%d|r fichas. (decisión: %s)"):format(st.bet, decision))
+            -- Ya cobrado al inicio; solo terminar
+            sendInfo(player, ("|cffff0000PIERDES|r. (decisión: %s)"):format(decision))
             EndSession(player, creature)
             return
         end
