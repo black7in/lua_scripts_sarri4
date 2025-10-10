@@ -1,9 +1,12 @@
 local npc = 50020
 
+local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara participar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 10 objetos perdidos de Nurpy.\n\nSi completas estos objetivos, recibirás una recompensa especial: Huevo de Lurky\nEste mascota cumple la funsión de abrir tu banco personal.\n\n¿Estás listo para el desafío?"
+
 local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Quiero participar en el reto semanal de Nurpy.", 0, 1)
-    player:GossipSendMenu(1, creature)
+    player:SendGossipText(texto, npc*10)
+    player:GossipSendMenu(npc*10, creature)
 end
 
 local function OnGossipSelect(event, player, creature, sender, intid, code)
