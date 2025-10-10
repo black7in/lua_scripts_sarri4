@@ -4,7 +4,12 @@ local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de N
 
 texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 am  hasta el lunes a las 6:00 am. Asegúrate de completar los objetivos y recoger tu recompensa dentro de estas fechas."
 
-local progreso = "Tu progreso actual es:\n- Horas jugadas: {}\n- Nivel alcanzado: {}\n- Objetos recolectados: {}\n\n¡Sigue así, estás en el camino correcto!"
+local progreso = "|cff00ff00Tu progreso actual es:|r\n" ..
+"- |cffffff00Horas jugadas:|r |cff00ffff{}|r\n" ..
+"- |cffffff00Nivel alcanzado:|r |cff00ffff{}|r\n" ..
+"- |cffffff00Objetos recolectados:|r |cff00ffff{}|r\n\n" ..
+"|cffffa500¡Sigue así, estás en el camino correcto!|r"
+
 
 local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
@@ -49,7 +54,11 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         player:SendGossipText(formatString(progreso, horas_jugadas, nivel, objetos_recolectados), npc*10)
         player:GossipSendMenu(npc*10, creature)
     elseif intid == 2 then
-
+        if obtenerTiempoJugado(player) < 20 * 3600 then
+            player:SendNotification("No has jugado las 20 horas necesarias.")
+            player:GossipComplete()
+            return
+        end
 
         if player:GetLevel() < 50 then
             player:SendNotification("No has alcanzado el nivel 50 necesario.")
@@ -71,6 +80,8 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         CharDBExecute("INSERT INTO characters_evento_semanal (guid, tiempo_total, premio_reclamado) VALUES (" .. player:GetGUIDLow() .. ", " .. player:GetTotalPlayedTime() .. ", 1) ON DUPLICATE KEY UPDATE premio_reclamado = 1;")
         player:AddItem(39896, 1) -- Huevo de Lurky
         player:AddItem(40752, 50) -- Emblemas de Triunfo
+        player:SendNotification("|cff00ff00¡Felicidades! Has reclamado tu recompensa.|r")
+        player:GossipComplete()
     elseif intid == 3 then
         OnGossipHello(event, player, creature)
     elseif intid == 4 then
