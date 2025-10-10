@@ -1,6 +1,6 @@
 local npc = 50020
 
-local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara participar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 10 objetos perdidos de Nurpy.\n\nSi completas estos objetivos, recibirás una recompensa especial: Huevo de Lurky\nEste mascota cumple la funsión de abrir tu banco personal.\n\n¿Estás listo para el desafío?"
+local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de Nurpy?\nPara ganar, solo necesitas cumplir con algunos objetivos:\n1. Acumular 20 horas de juego.\n2. Superar el nivel 50.\n3. Recolecta 10 objetos perdidos de Nurpy.\n\nSi completas estos objetivos, recibirás una recompensa especial: 1. |TINTERFACE/ICONS/inv_egg_03:20:20:0:0|t Huevo de Lurky\n2. |TINTERFACE/ICONS/spell_holy_summonchampion:20:20:0:0|t Emblemas de Triunfo x50.\n\n¿Estás listo para el desafío?"
 
 local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
