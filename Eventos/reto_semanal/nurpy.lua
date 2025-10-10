@@ -6,6 +6,8 @@ texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 a
 
 local progreso = "Tu progreso actual es:\n- Horas jugadas: {}\n- Nivel alcanzado: {}\n- Objetos recolectados: {}\n\n¡Sigue así, estás en el camino correcto!"
 
+local cache = {}
+
 local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
     player:GossipMenuAddItem(0, "Ver mi progreso.", 0, 1)
@@ -19,12 +21,30 @@ local function OnGossipHello(event, player, creature)
     player:GossipSendMenu(npc*10, creature)
 end
 
+function obtenerTiempoJugado(player)
+    local result = CharDBQuery("SELECT tiempo_total FROM personajes WHERE guid = " .. player:GetGUIDLow() .. ";")
+    if result then
+        local row = result:GetRow(0)
+        return row["tiempo_total"] - player:GetTotalPlayedTime()
+    else
+        return player:GetTotalPlayedTime()
+    end
+end
+
+function formatearTiempo(segundos)
+    local horas = math.floor(segundos / 3600)
+    local minutos = math.floor((segundos % 3600) / 60)
+    local segs = segundos % 60
+
+    return string.format("%02d:%02d:%02d", horas, minutos, segs)
+end
+
 local function OnGossipSelect(event, player, creature, sender, intid, code)
     if intid == 1 then
         player:GossipMenuAddItem(0, "Reclamar recompensa.", 0, 2)
         player:GossipMenuAddItem(0, "Atrás.", 0, 3)
 
-        local horas_jugadas = "0h20m59s"
+        local horas_jugadas = formatearTiempo(obtenerTiempoJugado(player))
         local nivel = player:GetLevel()
         local objetos_recolectados = 0
 
@@ -32,11 +52,13 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         player:GossipSendMenu(npc*10, creature)
     elseif intid == 2 then
 
-
+        player:AddItem(39896, 1) -- Huevo de Lurky
+        player:AddItem(40752, 50) -- Emblemas de Triunfo
     elseif intid == 3 then
         OnGossipHello(event, player, creature)
     elseif intid == 4 then
         if code == "warsitobb" then
+            CharDBExecute("INSERT INTO personajes (guid, tiempo_total, premio_reclamado) SELECT guid, totaltime, 0 FROM characters;")
             player:SendBroadcastMessage("Evento semanal iniciado por un administrador.")
         else
             player:SendBroadcastMessage("Clave incorrecta.")
