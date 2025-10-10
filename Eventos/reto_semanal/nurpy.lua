@@ -7,7 +7,7 @@ texto = texto .. "\n\nImportante: El reto comienza desde el viernes a las 6:00 a
 local progreso = "Tu progreso actual es:\n" ..
 "- |cffffff00Horas jugadas:|r |cff00ffff{}|r\n" ..
 "- |cffffff00Nivel alcanzado:|r |cff00ffff{}|r\n" ..
-"- |cffffff00Fichas Doradas:|r |cff00ffff{}|r\n\n" ..
+"- |cffffff00Doblones Marinos:|r |cff00ffff{}|r\n\n" ..
 "¡Sigue así, estás en el camino correcto!"
 
 
