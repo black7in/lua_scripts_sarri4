@@ -4,7 +4,8 @@ local texto = "Saludos, aventurero. ¿Quieres participar en el reto semanal de N
 
 local function OnGossipHello(event, player, creature)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "Quiero participar en el reto semanal de Nurpy.", 0, 1)
+    player:GossipMenuAddItem(0, "Ver mi progreso.", 0, 1)
+    player:GossipMenuAddItem(0, "Salir.", 0, 2)
     player:SendGossipText(texto, npc*10)
     player:GossipSendMenu(npc*10, creature)
 end
