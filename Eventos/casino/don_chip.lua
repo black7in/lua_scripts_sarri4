@@ -6,7 +6,7 @@ local recompensa  = 29837  -- item de recompensa por victoria
 local REWARD_PER_WIN = 1   -- cuántas recompensas dar por cada victoria
 
 -- Texto inicial (puedes personalizarlo)
-local texto = "Craps (Pass Line)\nReglas:\nCome-out: Saca 7-11 para ganar\n Saca 2-3-12 y pierdes.\nPoint: Saca 4,5,6,8,9,10\nCon Point: repite el Point y ganas pero si sale 7 = pierdes\nGanas recibes Fichas Doradas la cantidad que apostaste\nPierdes se cobran tus fichas arriesgadas."
+local texto = "Craps (Pass Line)\nReglas:\nTiro Come-out: Saca 7-11 para ganar pero si saca 2-3-12 pierdes.\nPero si sacas 4,5,6,8,9,10 es Point.\nCon Tiro Point: repite el Point y ganas pero si sale 7 pierdes.\nSi Ganas recibes Fichas Doradas la cantidad que apostaste.\nSiPierdes se cobran tus fichas arriesgadas."
 
 -- Estado por jugador
 local state = {}  -- [guidLow] = { bet = number, phase = "comeout"|"point", point = number, active = bool }
@@ -57,13 +57,13 @@ end
 
 local function ShowComeOutPrompt(player, creature)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "🎲 Tirar (Come-out)", 0, 10) -- intid 10 = tirar en come-out
+    player:GossipMenuAddItem(0, "Tirar (Come-out)", 0, 10) -- intid 10 = tirar en come-out
     player:GossipSendMenu(npc*10, creature)
 end
 
 local function ShowPointPrompt(player, creature, point)
     player:GossipClearMenu()
-    player:GossipMenuAddItem(0, "🎲 Tirar (Point = "..point..")", 0, 11) -- intid 11 = tirar con point
+    player:GossipMenuAddItem(0, "Tirar (Point = "..point..")", 0, 11) -- intid 11 = tirar con point
     player:GossipSendMenu(npc*10, creature)
 end
 
