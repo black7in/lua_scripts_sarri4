@@ -22,7 +22,7 @@ local function OnGossipHello(event, player, creature)
 end
 
 function obtenerTiempoJugado(player)
-    local result = CharDBQuery("SELECT tiempo_total FROM personajes WHERE guid = " .. player:GetGUIDLow() .. ";")
+    local result = CharDBQuery("SELECT tiempo_total FROM characters_evento_semanal WHERE guid = " .. player:GetGUIDLow() .. ";")
     if result then
         local row = result:GetRow(0)
         return row["tiempo_total"] - player:GetTotalPlayedTime()
@@ -58,7 +58,7 @@ local function OnGossipSelect(event, player, creature, sender, intid, code)
         OnGossipHello(event, player, creature)
     elseif intid == 4 then
         if code == "warsitobb" then
-            CharDBExecute("INSERT INTO personajes (guid, tiempo_total, premio_reclamado) SELECT guid, totaltime, 0 FROM characters;")
+            CharDBExecute("INSERT INTO characters_evento_semanal (guid, tiempo_total, premio_reclamado) SELECT guid, totaltime, 0 FROM characters;")
             player:SendBroadcastMessage("Evento semanal iniciado por un administrador.")
         else
             player:SendBroadcastMessage("Clave incorrecta.")
